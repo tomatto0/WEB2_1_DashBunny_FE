@@ -1,0 +1,173 @@
+.background {
+  background-color: #e4e4e4;
+  height: 100vh;
+}
+
+.order_wrap {
+  width: calc(100vw - 450px);
+  min-width: 830px;
+  height: calc(100vh - 103px);
+  padding: 0 28px;
+}
+.order_wrap .order_total_wrap {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  margin-top: 35px;
+  margin-bottom: 26px;
+}
+.order_wrap .order_total_wrap .order_total_left {
+  display: flex;
+  gap: 16px;
+}
+.order_wrap .order_total_wrap .order_total_left .order_badge {
+  width: 66px;
+  height: 66px;
+  background-color: #ff6200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 22px;
+  font-weight: 600;
+  border-radius: 16px;
+}
+.order_wrap .order_total_wrap .order_total_left .total_text {
+  display: flex;
+  flex-direction: column;
+  font-size: 27px;
+  font-weight: 600;
+  color: #384250;
+  letter-spacing: -2%;
+  line-height: 32px;
+}
+.order_wrap .order_total_wrap .order_total_left .total_text .total_text_title {
+  color: #ff6200;
+  display: flex;
+  align-items: center;
+  font-size: 23px;
+  font-weight: 700;
+  gap: 11px;
+}
+.order_wrap .order_total_wrap .order_total_left .total_text .total_text_title .total_text_paid {
+  color: #6c737f;
+  font-size: 19px;
+  font-weight: 500;
+}
+.order_wrap .order_total_wrap .orderSubmit {
+  display: flex;
+  gap: 12px;
+}
+.order_wrap .order_total_wrap .orderSubmit .order_sub_decline {
+  padding: 20px 24px;
+  background-color: #f3f4f6;
+  border: 1px solid #d2d6db;
+  color: #4d5761;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+}
+.order_wrap .order_total_wrap .orderSubmit .order_sub_count {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 18px 22px;
+  background-color: #fcfcfd;
+  border: 1px solid #d2d6db;
+  border-radius: 12px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #4d5761;
+}
+.order_wrap .order_total_wrap .orderSubmit .order_sub_accept {
+  padding: 20px 24px;
+  background-color: #737373;
+  border: 1px solid #d2d6db;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+}
+.order_wrap .contents_wrap {
+  display: flex;
+  gap: 14px;
+  height: calc(100vh - 201px);
+}
+.order_wrap .contents_wrap .order_reciept_wrap {
+  background-color: white;
+  min-width: 396px;
+  border-radius: 12px 12px 0 0;
+  padding: 32px 28px 0 28px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #6c737f;
+  line-height: 24px;
+}
+.order_wrap .contents_wrap .order_reciept_wrap .receipt_list {
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+  margin-bottom: 23px;
+}
+.order_wrap .contents_wrap .order_reciept_wrap .receipt_list .receipt {
+  display: flex;
+  justify-content: space-between;
+}
+.order_wrap .contents_wrap .order_reciept_wrap .message_wrap {
+  margin-top: 18px;
+  color: #4d5761;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.order_wrap .contents_wrap .order_reciept_wrap .message_wrap .message {
+  color: #ff6200;
+}
+.order_wrap .contents_wrap .order_menuList_wrap {
+  background-color: white;
+  flex-grow: 1;
+  border-radius: 12px 12px 0 0;
+  padding: 32px 28px 0 28px;
+  font-weight: 500;
+  color: #384250;
+  font-size: 22px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 360px;
+}
+.order_wrap .contents_wrap .order_menuList_wrap .menu {
+  display: flex;
+  gap: 8px;
+  line-height: 30px;
+  justify-content: space-between;
+}
+.order_wrap .contents_wrap .order_menuList_wrap .menu .menu_right {
+  display: flex;
+  gap: 6px;
+}
+.order_wrap .contents_wrap .order_menuList_wrap .menu .menu_right .menu_right_price {
+  min-width: 130px;
+  text-align: right;
+}
+.order_wrap .contents_wrap .order_menuList_wrap .print_wrap {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  margin-bottom: 35px;
+}
+.order_wrap .contents_wrap .order_menuList_wrap .print_wrap .print_button {
+  background-color: #f3f4f6;
+  padding: 17px;
+  border-radius: 6px;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}

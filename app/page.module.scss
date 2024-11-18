@@ -1,0 +1,190 @@
+@import '../styles/style.scss';
+
+.background {
+  background-color: $background-color;
+  height: 100vh;
+}
+
+.order_wrap {
+  width: calc(100vw - 450px);
+  min-width: 830px;
+  height: calc(100vh - 103px);
+  padding: 0 28px;
+
+  .order_total_wrap {
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+    margin-top: 35px;
+    margin-bottom: 26px;
+
+    .order_total_left {
+      display: flex;
+      gap: 16px;
+
+      .order_badge {
+        width: 66px;
+        height: 66px;
+        background-color: $bunny-orange;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 22px;
+        font-weight: 600;
+        border-radius: 16px;
+      }
+
+      .total_text {
+        display: flex;
+        flex-direction: column;
+        font-size: 27px;
+        font-weight: 600;
+        color: $gray-700;
+        letter-spacing: -2%;
+        line-height: 32px;
+
+        .total_text_title {
+          color: $bunny-orange;
+          display: flex;
+          align-items: center;
+          font-size: 23px;
+          font-weight: 700;
+          gap: 11px;
+
+          .total_text_paid {
+            color: $gray-500;
+            font-size: 19px;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+    .orderSubmit {
+      display: flex;
+      gap: 12px;
+
+      .order_sub_decline {
+        padding: 20px 24px;
+        background-color: $gray-100;
+        border: 1px solid $gray-300;
+        color: $gray-600;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 24px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+      }
+      .order_sub_count {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        padding: 18px 22px;
+        background-color: $gray-25;
+        border: 1px solid $gray-300;
+        border-radius: 12px;
+        font-size: 22px;
+        font-weight: 600;
+        color: $gray-600;
+      }
+      .order_sub_accept {
+        padding: 20px 24px;
+        background-color: $gray-true-500;
+        border: 1px solid $gray-300;
+        color: white;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 24px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+  .contents_wrap {
+    display: flex;
+    gap: 14px;
+    height: calc(100vh - 201px);
+
+    .order_reciept_wrap {
+      background-color: white;
+      min-width: 396px;
+      border-radius: 12px 12px 0 0;
+      padding: 32px 28px 0 28px;
+      font-size: 20px;
+      font-weight: 500;
+      color: $gray-500;
+      line-height: 24px;
+
+      .receipt_list {
+        display: flex;
+        flex-direction: column;
+        gap: 23px;
+        margin-bottom: 23px;
+
+        .receipt {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+
+      .message_wrap {
+        margin-top: 18px;
+        color: $gray-600;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+
+        .message {
+          color: $bunny-orange;
+        }
+      }
+    }
+    .order_menuList_wrap {
+      background-color: white;
+      flex-grow: 1;
+      border-radius: 12px 12px 0 0;
+      padding: 32px 28px 0 28px;
+      font-weight: 500;
+      color: $gray-700;
+      font-size: 22px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 360px;
+
+      .menu {
+        display: flex;
+        gap: 8px;
+        line-height: 30px;
+        justify-content: space-between;
+        .menu_right {
+          display: flex;
+          gap: 6px;
+          .menu_right_price {
+            min-width: 130px;
+            text-align: right;
+          }
+        }
+      }
+
+      .print_wrap {
+        display: flex;
+        gap: 15px;
+        width: 100%;
+        margin-bottom: 35px;
+
+        .print_button {
+          background-color: $gray-100;
+          padding: 17px;
+          border-radius: 6px;
+          flex-grow: 1;
+          display: flex;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
