@@ -1,0 +1,65 @@
+@import '../../../styles/style.scss';
+
+.v_nav {
+  background-color: $nav-background;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 92px;
+  box-sizing: border-box;
+  padding-top: 17px;
+  align-items: center;
+
+  .v_nav_top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 21px;
+
+    .button_wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+
+      .button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        padding: 9px 6px;
+        line-height: 20px;
+        width: 78px;
+
+        &:hover {
+          background-color: $nav-line;
+          border-radius: 12px;
+        }
+      }
+      .divider {
+        height: 1px;
+        width: 26px;
+        background-color: white;
+        margin-top: 12px;
+        margin-bottom: 12px;
+      }
+    }
+  }
+
+  .bottom_button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 6px;
+    line-height: 20px;
+    width: 78px;
+    position: absolute;
+    bottom: 70px;
+    left: 8px;
+  }
+}
