@@ -3,6 +3,7 @@ exports.__esModule = true;
 exports.metadata = void 0;
 var local_1 = require("next/font/local");
 require("./globals.css");
+var horizontalNav_1 = require("./components/horizontalNav");
 var pretendard = local_1["default"]({
     src: './fonts/PretendardVariable.woff2',
     display: 'swap',
@@ -19,6 +20,8 @@ exports.metadata = {
 function RootLayout(_a) {
     var children = _a.children;
     return (React.createElement("html", { lang: "kr", className: "" + pretendard.variable },
-        React.createElement("body", { className: pretendard.variable + " antialiased" }, children)));
+        React.createElement("body", { className: pretendard.variable + " antialiased" },
+            React.createElement(horizontalNav_1["default"], null),
+            children)));
 }
 exports["default"] = RootLayout;

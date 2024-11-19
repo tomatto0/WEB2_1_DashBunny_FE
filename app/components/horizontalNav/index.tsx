@@ -5,6 +5,7 @@ import Image from 'next/image';
 import styles from './horizontalNav.module.scss';
 import { useState, useEffect } from 'react';
 import VerticalNav from '../verticalNav';
+import Link from 'next/link';
 
 interface CustomHTMLElement extends HTMLElement {
   webkitRequestFullscreen?: () => Promise<void>;
@@ -67,9 +68,11 @@ export default function HorizontalNav() {
             height={36}
             onClick={clickModal}
           />
-          <div className={styles.status_box}>
-            <div className={styles.status_color}></div>영업중
-          </div>
+          <Link href="/">
+            <div className={styles.status_box}>
+              <div className={styles.status_color}></div>영업중
+            </div>
+          </Link>
         </div>
         <div className={styles.h_nav_right}>
           <p>{currentTime}</p>
