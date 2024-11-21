@@ -61,5 +61,9 @@
     position: absolute;
     bottom: 70px;
     left: 8px;
+    &:hover {
+      background-color: $nav-line;
+      border-radius: 12px;
+    }
   }
 }

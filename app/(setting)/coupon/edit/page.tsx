@@ -25,17 +25,7 @@ export default function couponAdd() {
           </div>
 
           <div className={styles.formtitle}>
-            할인 금액
-            <input
-              type="text"
-              placeholder="2,000"
-              className={`${styles.long_input_text}`}
-            />
-          </div>
-
-          <div className={styles.formtitle}>
             최소 주문 금액
-            <p className={styles.long_number_text}>원 이상</p>
             <input
               type="text"
               placeholder="9,500"

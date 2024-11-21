@@ -1,6 +1,7 @@
-@import '../../../../styles/style.scss';
+@import '@/styles/style.scss';
+
 .nav_wrap {
-  width: 260px;
+  min-width: 260px;
   background-color: $gray-100;
   height: calc(100vh - 68px);
   padding-top: 35px;
@@ -22,4 +23,8 @@
     margin-bottom: 28px;
     font-weight: 500;
   }
+}
+
+.active {
+  color: $bunny-orange;
 }
