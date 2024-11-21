@@ -1,11 +1,9 @@
 import Image from 'next/image';
 import styles from './page.module.scss';
-import HorizontalNav from './components/horizontalNav';
-import OrderList from './components/OrderList';
+import OrderList from './components/orderList';
 export default function Home() {
   return (
     <div className={styles.background}>
-      <HorizontalNav />
       <OrderList />
 
       <div className={styles.order_wrap}>

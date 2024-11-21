@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
+import HorizontalNav from './components/horizontalNav';
 
 const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2',
@@ -24,7 +25,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="kr" className={`${pretendard.variable}`}>
-      <body className={`${pretendard.variable} antialiased`}>{children}</body>
+      <body className={`${pretendard.variable} antialiased`}>
+        <HorizontalNav />
+        {children}
+      </body>
     </html>
   );
 }

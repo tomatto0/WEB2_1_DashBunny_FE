@@ -6,6 +6,7 @@ var image_1 = require("next/image");
 var horizontalNav_module_scss_1 = require("./horizontalNav.module.scss");
 var react_2 = require("react");
 var verticalNav_1 = require("../verticalNav");
+var link_1 = require("next/link");
 function HorizontalNav() {
     //현재시간 가져오는 함수
     var _a = react_2.useState(''), currentTime = _a[0], setCurrentTime = _a[1];
@@ -46,9 +47,10 @@ function HorizontalNav() {
         react_1["default"].createElement("div", { className: horizontalNav_module_scss_1["default"].h_nav },
             react_1["default"].createElement("div", { className: horizontalNav_module_scss_1["default"].h_nav_left },
                 react_1["default"].createElement(image_1["default"], { "aria-hidden": true, src: "/icons/navBar.svg", alt: "Window icon", width: 36, height: 36, onClick: clickModal }),
-                react_1["default"].createElement("div", { className: horizontalNav_module_scss_1["default"].status_box },
-                    react_1["default"].createElement("div", { className: horizontalNav_module_scss_1["default"].status_color }),
-                    "\uC601\uC5C5\uC911")),
+                react_1["default"].createElement(link_1["default"], { href: "/" },
+                    react_1["default"].createElement("div", { className: horizontalNav_module_scss_1["default"].status_box },
+                        react_1["default"].createElement("div", { className: horizontalNav_module_scss_1["default"].status_color }),
+                        "\uC601\uC5C5\uC911"))),
             react_1["default"].createElement("div", { className: horizontalNav_module_scss_1["default"].h_nav_right },
                 react_1["default"].createElement("p", null, currentTime),
                 react_1["default"].createElement("div", { className: horizontalNav_module_scss_1["default"].window_status },

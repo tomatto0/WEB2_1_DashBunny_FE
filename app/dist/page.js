@@ -2,12 +2,10 @@
 exports.__esModule = true;
 var image_1 = require("next/image");
 var page_module_scss_1 = require("./page.module.scss");
-var horizontalNav_1 = require("./components/horizontalNav");
-var OrderList_1 = require("./components/OrderList");
+var orderList_1 = require("./components/orderList");
 function Home() {
     return (React.createElement("div", { className: page_module_scss_1["default"].background },
-        React.createElement(horizontalNav_1["default"], null),
-        React.createElement(OrderList_1["default"], null),
+        React.createElement(orderList_1["default"], null),
         React.createElement("div", { className: page_module_scss_1["default"].order_wrap },
             React.createElement("div", { className: page_module_scss_1["default"].order_total_wrap },
                 React.createElement("div", { className: page_module_scss_1["default"].order_total_left },

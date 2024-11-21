@@ -23,7 +23,7 @@ export default function VerticalNav(props: ClickModalProps) {
             onClick={clickModal}
           />
           <div className={styles.button_wrap}>
-            <Link href="/report">
+            <Link href="/report" onClick={clickModal}>
               <div className={styles.button}>
                 <Image
                   aria-hidden
@@ -35,7 +35,7 @@ export default function VerticalNav(props: ClickModalProps) {
                 <p>매출조회</p>
               </div>
             </Link>
-            <Link href="/setting/default">
+            <Link href="/default" onClick={clickModal}>
               <div className={styles.button}>
                 <Image
                   aria-hidden
@@ -47,7 +47,7 @@ export default function VerticalNav(props: ClickModalProps) {
                 <p>가게관리</p>
               </div>
             </Link>
-            <Link href="/setting/menu">
+            <Link href="/menu" onClick={clickModal}>
               <div className={styles.button}>
                 <Image
                   aria-hidden
@@ -59,7 +59,7 @@ export default function VerticalNav(props: ClickModalProps) {
                 <p>메뉴관리</p>
               </div>
             </Link>
-            <Link href="/setting/coupon">
+            <Link href="/coupon" onClick={clickModal}>
               <div className={styles.button}>
                 <Image
                   aria-hidden
@@ -73,7 +73,7 @@ export default function VerticalNav(props: ClickModalProps) {
             </Link>
             <div className={styles.divider}></div>
 
-            <Link href="/setting/customer">
+            <Link href="/customer" onClick={clickModal}>
               <div className={styles.button}>
                 <Image
                   aria-hidden
@@ -85,7 +85,7 @@ export default function VerticalNav(props: ClickModalProps) {
                 <p>공지사항</p>
               </div>
             </Link>
-            <Link href="/setting/customer/chore">
+            <Link href="/customer/chore" onClick={clickModal}>
               <div className={styles.button}>
                 <Image
                   aria-hidden
@@ -99,7 +99,7 @@ export default function VerticalNav(props: ClickModalProps) {
             </Link>
           </div>
         </div>
-        <Link href="/sales-report">
+        <Link href="/default/businessHours" onClick={clickModal}>
           <div className={styles.bottom_button}>
             <Image
               aria-hidden

@@ -14,6 +14,20 @@
   }
 }
 
+/* html,
+body {
+  width: 100%;
+  min-width: 1280px; 
+  overflow-x: hidden; 
+}
+
+@media (min-width: 1280px) {
+  html,
+  body {
+    min-width: auto;
+  }
+} */
+
 body {
   color: var(--foreground);
   background: var(--background);

@@ -4,6 +4,7 @@
   right: 0;
   height: calc(100vh - 68px);
   background-color: white;
+  z-index: 3;
 }
 .order_list .list_title {
   padding: 10px 22px;
