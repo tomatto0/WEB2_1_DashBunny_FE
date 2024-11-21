@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import styles from './page.module.scss';
-import OrderList from './components/orderList';
+import OrderList from './components/OrderList';
 export default function Home() {
   return (
     <div className={styles.background}>
