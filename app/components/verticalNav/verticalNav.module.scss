@@ -1,7 +1,7 @@
-@import '../../../styles/style.scss';
+@use '../../../styles/style.scss';
 
 .v_nav {
-  background-color: $nav-background;
+  background-color: style.$nav-background;
   display: flex;
   flex-direction: column;
   color: white;
@@ -36,7 +36,7 @@
         width: 78px;
 
         &:hover {
-          background-color: $nav-line;
+          background-color: style.$nav-line;
           border-radius: 12px;
         }
       }
@@ -62,7 +62,7 @@
     bottom: 70px;
     left: 8px;
     &:hover {
-      background-color: $nav-line;
+      background-color: style.$nav-line;
       border-radius: 12px;
     }
   }

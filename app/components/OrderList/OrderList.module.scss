@@ -1,4 +1,4 @@
-@import '../../../styles/style.scss';
+@use '../../../styles/style.scss';
 
 .order_list {
   position: absolute;
@@ -10,10 +10,10 @@
 
   .list_title {
     padding: 10px 22px;
-    color: $gray-700;
-    background-color: $gray-100;
-    border-top: 1px solid $gray-200;
-    border-bottom: 1px solid $gray-200;
+    color: style.$gray-700;
+    background-color: style.$gray-100;
+    border-top: 1px solid style.$gray-200;
+    border-bottom: 1px solid style.$gray-200;
     font-size: 17px;
     box-sizing: border-box;
     line-height: 20px;
@@ -21,8 +21,8 @@
   }
   .new_order_wrap {
     padding: 14px 23px;
-    border-top: 4px solid $bunny-orange;
-    background-color: $bunny-orange-light;
+    border-top: 4px solid style.$bunny-orange;
+    background-color: style.$bunny-orange-light;
 
     .order_title {
       display: flex;
@@ -31,7 +31,7 @@
 
       .order_number {
         font-size: 20px;
-        color: $bunny-orange;
+        color: style.$bunny-orange;
         font-weight: 700;
         margin-right: 12px;
       }
@@ -39,7 +39,7 @@
       .order_paid {
         display: flex;
         font-size: 16px;
-        color: $gray-500;
+        color: style.$gray-500;
         font-weight: 400;
       }
     }
@@ -48,13 +48,13 @@
       .order_item {
         font-size: 18px;
         font-weight: 500;
-        color: $gray-500;
+        color: style.$gray-500;
       }
       .order_price {
         display: flex;
         font-weight: 700;
         font-size: 20px;
-        color: $gray-700;
+        color: style.$gray-700;
       }
     }
   }
@@ -69,7 +69,7 @@
 
       .order_number {
         font-size: 20px;
-        color: $bunny-orange;
+        color: style.$bunny-orange;
         font-weight: 700;
         margin-right: 12px;
       }
@@ -77,7 +77,7 @@
       .order_paid {
         display: flex;
         font-size: 16px;
-        color: $gray-500;
+        color: style.$gray-500;
         font-weight: 400;
       }
     }
@@ -86,13 +86,13 @@
       .order_item {
         font-size: 18px;
         font-weight: 500;
-        color: $gray-500;
+        color: style.$gray-500;
       }
       .order_price {
         display: flex;
         font-weight: 700;
         font-size: 20px;
-        color: $gray-700;
+        color: style.$gray-700;
       }
     }
   }

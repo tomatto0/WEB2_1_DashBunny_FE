@@ -1,4 +1,4 @@
-@import './style.scss';
+@use 'style.scss';
 
 .contents_wrap {
   padding: 28px 60px;
@@ -23,7 +23,7 @@
     font-size: 21px;
     font-weight: 600;
     line-height: 1.5;
-    color: $gray-700;
+    color: style.$gray-700;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -39,7 +39,7 @@
     gap: 4px;
     align-items: center;
     justify-content: center;
-    background-color: $bunny-orange;
+    background-color: style.$bunny-orange;
     color: white;
     border-radius: 8px;
   }
@@ -54,8 +54,8 @@
   gap: 5px;
 
   .group {
-    color: $gray-500;
-    background-color: $gray-100;
+    color: style.$gray-500;
+    background-color: style.$gray-100;
     padding: 6px 18px;
     border-radius: 8px;
   }
@@ -63,7 +63,7 @@
 
 .menu_list {
   margin-top: 21px;
-  color: $gray-500;
+  color: style.$gray-500;
   font-size: 17px;
   font-weight: 500;
 
@@ -75,33 +75,33 @@
     height: 70px;
     font-weight: 400;
     font-size: 15px;
-    color: $gray-700;
+    color: style.$gray-700;
 
     .delete_button {
       color: red;
       font-size: 13px;
       border-radius: 2px;
       padding: 6px 11px;
-      border: 1px solid $gray-200;
+      border: 1px solid style.$gray-200;
       margin-right: 9px;
     }
 
     .soldout_button {
-      color: $gray-500;
+      color: style.$gray-500;
       font-size: 13px;
       border-radius: 2px;
       padding: 6px 11px;
-      border: 1px solid $gray-200;
+      border: 1px solid style.$gray-200;
     }
   }
 
   .list_bar_wrap {
-    background-color: $gray-50;
-    border-top: 1px solid $gray-200;
-    border-bottom: 1px solid $gray-200;
+    background-color: style.$gray-50;
+    border-top: 1px solid style.$gray-200;
+    border-bottom: 1px solid style.$gray-200;
     font-size: 13px;
     font-weight: 500;
-    color: $gray-500;
+    color: style.$gray-500;
     display: flex;
     align-items: center;
     padding: 11px 11px 8px 11px;
@@ -143,8 +143,8 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-color: $gray-50;
-      color: $gray-500;
+      background-color: style.$gray-50;
+      color: style.$gray-500;
       font-size: 13px;
       font-weight: 500;
       border-radius: 8px;
@@ -154,7 +154,7 @@
     .menu_title {
       font-size: 16px;
       font-weight: 400;
-      color: $gray-500;
+      color: style.$gray-500;
     }
   }
   .menu_right {
@@ -165,8 +165,8 @@
     .left_count {
       width: 72px;
       font-size: 13px;
-      color: $gray-500;
-      border: 1px solid $gray-200;
+      color: style.$gray-500;
+      border: 1px solid style.$gray-200;
       padding: 6px 11px;
       border-radius: 8px;
     }
@@ -181,8 +181,8 @@
     position: relative;
     width: 51px; // w-11
     height: 30px; // h-6
-    background-color: $gray-200;
-    border-color: $gray-200;
+    background-color: style.$gray-200;
+    border-color: style.$gray-200;
     border-radius: 9999px; // rounded-full
     transition: background-color 0.2s;
     margin-right: 15px;
@@ -193,7 +193,7 @@
     }
 
     &:checked {
-      background-color: $bunny-orange; // bg-blue-600
+      background-color: style.$bunny-orange; // bg-blue-600
       background-image: none;
 
       &:after {
@@ -228,8 +228,8 @@
     position: relative;
     width: 24px; // w-11
     height: 24px; // h-6
-    background-color: $gray-200;
-    border-color: $gray-200;
+    background-color: style.$gray-200;
+    border-color: style.$gray-200;
     border-radius: 4px; // rounded-full
     transition: background-color 0.2s;
 
@@ -239,7 +239,7 @@
     }
 
     &:checked {
-      background-color: $bunny-orange; // bg-blue-600
+      background-color: style.$bunny-orange; // bg-blue-600
 
       &:after {
         outline: none;

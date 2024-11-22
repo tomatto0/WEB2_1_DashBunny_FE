@@ -43,10 +43,6 @@
   border-radius: 8px;
 }
 
-.margin_top {
-  margin-top: 8px;
-}
-
 .groups {
   display: flex;
   gap: 5px;
@@ -60,19 +56,12 @@
 
 .menu_list {
   margin-top: 21px;
-  color: #6c737f;
-  font-size: 17px;
-  font-weight: 500;
 }
 .menu_list .button_wrap {
   display: flex;
   width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  height: 70px;
-  font-weight: 400;
-  font-size: 15px;
-  color: #384250;
+  justify-content: flex-end;
+  gap: 9px;
 }
 .menu_list .button_wrap .delete_button {
   color: red;
@@ -80,7 +69,6 @@
   border-radius: 2px;
   padding: 6px 11px;
   border: 1px solid #e5e7eb;
-  margin-right: 9px;
 }
 .menu_list .button_wrap .soldout_button {
   color: #6c737f;

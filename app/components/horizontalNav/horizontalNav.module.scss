@@ -1,7 +1,7 @@
-@import '../../../styles/style.scss';
+@use '../../../styles/style.scss';
 
 .h_nav {
-  background-color: $nav-background;
+  background-color: style.$nav-background;
   height: 68px;
   display: flex;
   align-items: center;

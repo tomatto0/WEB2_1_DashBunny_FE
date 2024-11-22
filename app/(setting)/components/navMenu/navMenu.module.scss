@@ -1,7 +1,7 @@
-@import '../../../../styles/style.scss';
+@use '../../../../styles/style.scss';
 .nav_wrap {
   min-width: 260px;
-  background-color: $gray-100;
+  background-color: style.$gray-100;
   height: calc(100vh - 68px);
   padding-top: 35px;
   padding-left: 33px;
@@ -11,12 +11,12 @@
   font-weight: 600;
   font-size: 20px;
   line-height: 150%;
-  color: $gray-700;
+  color: style.$gray-700;
   margin-bottom: 35px;
 }
 
 .category_list {
-  color: $gray-500;
+  color: style.$gray-500;
 
   .category {
     margin-bottom: 25px;
@@ -25,5 +25,5 @@
 }
 
 .active {
-  color: $bunny-orange;
+  color: style.$bunny-orange;
 }

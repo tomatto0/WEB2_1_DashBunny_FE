@@ -1,3 +1,8 @@
+:export {
+  nav-background: #484848;
+  nav-line: #393939;
+}
+
 .contents_wrap {
   padding: 28px 60px;
   width: 100%;

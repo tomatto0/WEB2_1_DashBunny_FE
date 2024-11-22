@@ -1,3 +1,8 @@
+:export {
+  nav-background: #484848;
+  nav-line: #393939;
+}
+
 .h_nav {
   background-color: #484848;
   height: 68px;
