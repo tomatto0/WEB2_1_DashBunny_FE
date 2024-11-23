@@ -228,8 +228,8 @@
         box-sizing: border-box;
 
         img {
-          width: 29px;
-          height: 29px;
+          width: 102px;
+          height: 102px;
         }
       }
     }
@@ -241,7 +241,7 @@
     width: 100%;
     height: auto;
     padding: 20px 21px;
-    color: variables.$gray-500;
+    color: variables.$gray-700;
     border-radius: 8px;
     border: 1px solid variables.$gray-300;
     scrollbar-width: none;

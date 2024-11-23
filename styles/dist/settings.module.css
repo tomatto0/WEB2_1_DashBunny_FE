@@ -201,8 +201,8 @@
   box-sizing: border-box;
 }
 .contents_wrap .add_image_wrap .add_image_block .add_image img {
-  width: 29px;
-  height: 29px;
+  width: 102px;
+  height: 102px;
 }
 .contents_wrap .text_area {
   margin-top: 8px;
@@ -210,7 +210,7 @@
   width: 100%;
   height: auto;
   padding: 20px 21px;
-  color: #6c737f;
+  color: #384250;
   border-radius: 8px;
   border: 1px solid #d2d6db;
   scrollbar-width: none;

@@ -3,26 +3,95 @@
 import styles from '@/styles/settings.module.scss';
 import Image from 'next/image';
 import { useGetStoreBasicInfo } from './hooks/useStoreInfo';
+import React, { FormEvent, ChangeEvent, useReducer, useEffect } from 'react';
+import useUpdateStoreInfo from './hooks/useUpdateStoreInfo';
 
 export default function BasicInfo() {
   //현재 주소가 /posts로 시작하면 상단에 포스트로 표기
   const { data, isLoading } = useGetStoreBasicInfo();
 
-  console.log(data);
-  console.log(data?.storeName);
+  const initialState = {
+    storePhone: '',
+    storeLogo: '',
+    bannerImage: '',
+    storeDescription: '',
+    promoShortsUrl: '',
+  };
+
+  function reducer(
+    state: typeof initialState,
+    action:
+      | { type: 'UPDATE_FIELD'; field: string; value: any }
+      | { type: 'SET_INITIAL_STATE'; value: typeof initialState },
+  ) {
+    switch (action.type) {
+      case 'UPDATE_FIELD':
+        return {
+          ...state,
+          [action.field]: action.value,
+        };
+      case 'SET_INITIAL_STATE':
+        return {
+          ...state,
+          ...action.value,
+        };
+      default:
+        return state;
+    }
+  }
+
+  const [formData, dispatch] = useReducer(reducer, initialState);
+
+  // Update state when `data` is loaded
+  useEffect(() => {
+    if (data) {
+      dispatch({
+        type: 'SET_INITIAL_STATE',
+        value: {
+          storePhone: data.storePhone || '',
+          storeLogo: data.storeLogo || '',
+          bannerImage: data.bannerImage || '',
+          storeDescription: data.storeDescription || '',
+          promoShortsUrl: data.ShortsUrl || '',
+        },
+      });
+    }
+  }, [data]);
+
+  //입력될때마다 formdatark 업뎃되는 함수
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
+    dispatch({ type: 'UPDATE_FIELD', field: name, value });
+  };
+
+  const { mutate } = useUpdateStoreInfo();
+
+  //폼데이터 제출
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    mutate(formData);
+  };
 
   if (isLoading) return <div>로딩 중...</div>;
 
   return (
     <>
       <div className={styles.contents_wrap}>
-        <form className="" action="" encType="multipart/form-data">
+        <form
+          className=""
+          action=""
+          encType="multipart/form-data"
+          onSubmit={handleSubmit}
+        >
           <div className={styles.page_title}>
             기본정보{' '}
             <button className={styles.submit_button} type="submit">
               저장
             </button>
           </div>
+
           <div className={styles.formtitle}>
             가게이름
             <input
@@ -39,15 +108,20 @@ export default function BasicInfo() {
               type="text"
               placeholder="000-0000-0000"
               className={styles.short_input_text}
+              name="storePhone"
+              value={formData.storePhone}
+              onChange={handleInputChange}
             />
           </div>
 
           <div className={styles.formtitle}>
             가게 상태
-            <select className={styles.short_selector}>
-              <option>운영중</option>
-              <option>운영정지</option>
-            </select>
+            <input
+              type="text"
+              defaultValue={data?.storeStatus}
+              disabled
+              className={`${styles.short_input_text} ${styles.disabled}`}
+            />
           </div>
 
           <div className={styles.formtitle}>
@@ -68,27 +142,47 @@ export default function BasicInfo() {
               <div className={styles.add_image_block}>
                 매장 로고
                 <div className={styles.add_image}>
-                  <Image
-                    aria-hidden
-                    src="/icons/setting_camera.svg"
-                    alt="camera icon"
-                    width={29}
-                    height={29}
-                  />
-                  이미지 추가
+                  {data?.storeLogo ? (
+                    <Image
+                      aria-hidden
+                      src={data.storeLogo}
+                      alt="storeLogo"
+                      width={102}
+                      height={102}
+                      quality={75}
+                    />
+                  ) : (
+                    <Image
+                      aria-hidden
+                      src="/img/setting_img_placeholder.jpg"
+                      alt="placeholderImg"
+                      width={102}
+                      height={102}
+                    />
+                  )}
                 </div>
               </div>
               <div className={styles.add_image_block}>
                 배너 이미지
                 <div className={styles.add_image}>
-                  <Image
-                    aria-hidden
-                    src="/icons/setting_camera.svg"
-                    alt="camera icon"
-                    width={29}
-                    height={29}
-                  />
-                  이미지 추가
+                  {data?.storeLogo ? (
+                    <Image
+                      aria-hidden
+                      src={data.bannerImage}
+                      alt="storebannerImg"
+                      width={102}
+                      height={102}
+                      quality={75}
+                    />
+                  ) : (
+                    <Image
+                      aria-hidden
+                      src="/img/setting_img_placeholder.jpg"
+                      alt="placeholderImg"
+                      width={102}
+                      height={102}
+                    />
+                  )}
                 </div>
               </div>
             </div>
@@ -101,6 +195,9 @@ export default function BasicInfo() {
               placeholder="가게 소개를 적어주세요"
               rows={2}
               className={styles.text_area}
+              name="storeDescription"
+              value={formData.storeDescription}
+              onChange={handleInputChange}
             />
           </div>
 
@@ -110,6 +207,9 @@ export default function BasicInfo() {
               type="text"
               placeholder="https://youtube.com/shorts/PgIJlbWb7Nc?feature=shared"
               className={`${styles.long_input_text}`}
+              name="promoShortsUrl"
+              value={formData.promoShortsUrl}
+              onChange={handleInputChange}
             />
           </div>
         </form>

@@ -6,9 +6,8 @@ var defaultInfo_1 = require("../api/defaultInfo");
 exports.useGetStoreBasicInfo = function () {
     return react_query_1.useQuery({
         queryKey: ["storeBasicInfo"],
-        queryFn: defaultInfo_1.getbasicInfo,
-        staleTime: 1000 * 60 * 5,
-        gcTime: 1000 * 60 * 30,
+        queryFn: defaultInfo_1.getBasicInfo,
+        staleTime: 1000,
         retry: 1,
         refetchOnWindowFocus: false
     });
