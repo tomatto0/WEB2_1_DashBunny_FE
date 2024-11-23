@@ -224,9 +224,13 @@
         background-color: variables.$gray-50;
         font-size: 13px;
         font-weight: 500;
-
         border-radius: 12px;
         box-sizing: border-box;
+
+        img {
+          width: 29px;
+          height: 29px;
+        }
       }
     }
   }

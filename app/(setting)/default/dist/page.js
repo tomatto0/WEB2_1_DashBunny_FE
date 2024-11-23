@@ -1,9 +1,16 @@
+'use client';
 "use strict";
 exports.__esModule = true;
 var settings_module_scss_1 = require("@/styles/settings.module.scss");
 var image_1 = require("next/image");
-function Order() {
+var useStoreInfo_1 = require("./hooks/useStoreInfo");
+function BasicInfo() {
     //현재 주소가 /posts로 시작하면 상단에 포스트로 표기
+    var _a = useStoreInfo_1.useGetStoreBasicInfo(), data = _a.data, isLoading = _a.isLoading;
+    console.log(data);
+    console.log(data === null || data === void 0 ? void 0 : data.storeName);
+    if (isLoading)
+        return React.createElement("div", null, "\uB85C\uB529 \uC911...");
     return (React.createElement(React.Fragment, null,
         React.createElement("div", { className: settings_module_scss_1["default"].contents_wrap },
             React.createElement("form", { className: "", action: "", encType: "multipart/form-data" },
@@ -13,7 +20,7 @@ function Order() {
                     React.createElement("button", { className: settings_module_scss_1["default"].submit_button, type: "submit" }, "\uC800\uC7A5")),
                 React.createElement("div", { className: settings_module_scss_1["default"].formtitle },
                     "\uAC00\uAC8C\uC774\uB984",
-                    React.createElement("input", { type: "text", defaultValue: "\uB300\uC26C\uBC84\uB2C8", disabled: true, className: settings_module_scss_1["default"].short_input_text + " " + settings_module_scss_1["default"].disabled })),
+                    React.createElement("input", { type: "text", defaultValue: data === null || data === void 0 ? void 0 : data.storeName, disabled: true, className: settings_module_scss_1["default"].short_input_text + " " + settings_module_scss_1["default"].disabled })),
                 React.createElement("div", { className: settings_module_scss_1["default"].formtitle },
                     "\uAC00\uAC8C \uC804\uD654\uBC88\uD638",
                     React.createElement("input", { type: "text", placeholder: "000-0000-0000", className: settings_module_scss_1["default"].short_input_text })),
@@ -24,7 +31,7 @@ function Order() {
                         React.createElement("option", null, "\uC6B4\uC601\uC815\uC9C0"))),
                 React.createElement("div", { className: settings_module_scss_1["default"].formtitle },
                     "\uAC00\uAC8C \uC8FC\uC18C",
-                    React.createElement("input", { type: "text", defaultValue: "\uC11C\uC6B8\uC2DC \uB178\uC6D0\uAD6C \uC5B4\uCA4C\uAD6C", disabled: true, className: settings_module_scss_1["default"].long_input_text + " " + settings_module_scss_1["default"].disabled })),
+                    React.createElement("input", { type: "text", defaultValue: data === null || data === void 0 ? void 0 : data.storeAddress, disabled: true, className: settings_module_scss_1["default"].long_input_text + " " + settings_module_scss_1["default"].disabled })),
                 React.createElement("hr", { className: settings_module_scss_1["default"].margin_bottom }),
                 React.createElement("div", { className: settings_module_scss_1["default"].formtitle },
                     "\uAC00\uAC8C \uC18C\uAC1C \uD3B8\uC9D1",
@@ -46,4 +53,4 @@ function Order() {
                     "\uAC00\uAC8C \uD64D\uBCF4\uC6A9 shorts URL\uC8FC\uC18C",
                     React.createElement("input", { type: "text", placeholder: "https://youtube.com/shorts/PgIJlbWb7Nc?feature=shared", className: "" + settings_module_scss_1["default"].long_input_text }))))));
 }
-exports["default"] = Order;
+exports["default"] = BasicInfo;

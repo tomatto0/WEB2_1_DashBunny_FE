@@ -3,7 +3,7 @@
 exports.__esModule = true;
 var settings_module_scss_1 = require("@/styles/settings.module.scss");
 var react_1 = require("react");
-function Delivery() {
+function Order() {
     var _a = react_1.useState(false), isChecked = _a[0], setIsChecked = _a[1];
     var handleChange = function () {
         setIsChecked(!isChecked);
@@ -33,4 +33,4 @@ function Delivery() {
                     React.createElement("p", { className: settings_module_scss_1["default"].short_number_text }, "\uC6D0"),
                     React.createElement("input", { type: "number", placeholder: "0", min: "0", max: "100000", step: "100", className: settings_module_scss_1["default"].short_input_text }))))));
 }
-exports["default"] = Delivery;
+exports["default"] = Order;

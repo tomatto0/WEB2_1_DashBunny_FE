@@ -15,6 +15,11 @@
     gap: 52px;
     margin-left: 27px;
 
+    img {
+      width: 36px;
+      height: 36px;
+    }
+
     .status_box {
       display: flex;
       align-items: center;
@@ -46,6 +51,12 @@
         display: flex;
         justify-content: center;
         height: 68px;
+        align-items: center;
+
+        img {
+          width: 36px;
+          height: 36px;
+        }
       }
     }
   }

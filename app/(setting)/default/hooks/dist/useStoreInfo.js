@@ -1,0 +1,15 @@
+"use strict";
+exports.__esModule = true;
+exports.useGetStoreBasicInfo = void 0;
+var react_query_1 = require("@tanstack/react-query");
+var defaultInfo_1 = require("../api/defaultInfo");
+exports.useGetStoreBasicInfo = function () {
+    return react_query_1.useQuery({
+        queryKey: ["storeBasicInfo"],
+        queryFn: defaultInfo_1.getbasicInfo,
+        staleTime: 1000 * 60 * 5,
+        gcTime: 1000 * 60 * 30,
+        retry: 1,
+        refetchOnWindowFocus: false
+    });
+};

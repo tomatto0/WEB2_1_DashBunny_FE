@@ -1,8 +1,17 @@
+'use client';
+
 import styles from '@/styles/settings.module.scss';
 import Image from 'next/image';
+import { useGetStoreBasicInfo } from './hooks/useStoreInfo';
 
-export default function Order() {
+export default function BasicInfo() {
   //현재 주소가 /posts로 시작하면 상단에 포스트로 표기
+  const { data, isLoading } = useGetStoreBasicInfo();
+
+  console.log(data);
+  console.log(data?.storeName);
+
+  if (isLoading) return <div>로딩 중...</div>;
 
   return (
     <>
@@ -18,7 +27,7 @@ export default function Order() {
             가게이름
             <input
               type="text"
-              defaultValue="대쉬버니"
+              defaultValue={data?.storeName}
               disabled
               className={`${styles.short_input_text} ${styles.disabled}`}
             />
@@ -45,7 +54,7 @@ export default function Order() {
             가게 주소
             <input
               type="text"
-              defaultValue="서울시 노원구 어쩌구"
+              defaultValue={data?.storeAddress}
               disabled
               className={`${styles.long_input_text} ${styles.disabled}`}
             />

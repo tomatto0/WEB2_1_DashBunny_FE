@@ -1,8 +1,3 @@
-:export {
-  nav-background: #484848;
-  nav-line: #393939;
-}
-
 .h_nav {
   background-color: #484848;
   height: 68px;
@@ -17,6 +12,10 @@
   font-weight: 600;
   gap: 52px;
   margin-left: 27px;
+}
+.h_nav .h_nav_left img {
+  width: 36px;
+  height: 36px;
 }
 .h_nav .h_nav_left .status_box {
   display: flex;
@@ -47,4 +46,9 @@
   display: flex;
   justify-content: center;
   height: 68px;
+  align-items: center;
+}
+.h_nav .h_nav_right .window_status .window_wrap img {
+  width: 36px;
+  height: 36px;
 }
