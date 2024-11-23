@@ -4,6 +4,7 @@ exports.metadata = void 0;
 var local_1 = require("next/font/local");
 require("./globals.css");
 var horizontalNav_1 = require("./components/horizontalNav");
+var ReactQueryConfigContext_1 = require("@/provider/ReactQueryConfigContext");
 var pretendard = local_1["default"]({
     src: './fonts/PretendardVariable.woff2',
     display: 'swap',
@@ -22,6 +23,6 @@ function RootLayout(_a) {
     return (React.createElement("html", { lang: "kr", className: "" + pretendard.variable },
         React.createElement("body", { className: pretendard.variable + " antialiased" },
             React.createElement(horizontalNav_1["default"], null),
-            children)));
+            React.createElement(ReactQueryConfigContext_1["default"], null, children))));
 }
 exports["default"] = RootLayout;

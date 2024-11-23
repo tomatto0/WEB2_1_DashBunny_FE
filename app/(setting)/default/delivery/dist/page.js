@@ -2,7 +2,7 @@
 exports.__esModule = true;
 var settings_module_scss_1 = require("@/styles/settings.module.scss");
 var image_1 = require("next/image");
-function Order() {
+function Delivery() {
     //현재 주소가 /posts로 시작하면 상단에 포스트로 표기
     return (React.createElement(React.Fragment, null,
         React.createElement("div", { className: settings_module_scss_1["default"].contents_wrap },
@@ -34,4 +34,4 @@ function Order() {
                         "20\uBD84",
                         React.createElement(image_1["default"], { "aria-hidden": true, src: "/icons/count_plus.svg", alt: "Window icon", width: 24, height: 24 })))))));
 }
-exports["default"] = Order;
+exports["default"] = Delivery;

@@ -200,13 +200,17 @@
   border-radius: 12px;
   box-sizing: border-box;
 }
+.contents_wrap .add_image_wrap .add_image_block .add_image img {
+  width: 102px;
+  height: 102px;
+}
 .contents_wrap .text_area {
   margin-top: 8px;
   margin-bottom: 44px;
   width: 100%;
   height: auto;
   padding: 20px 21px;
-  color: #6c737f;
+  color: #384250;
   border-radius: 8px;
   border: 1px solid #d2d6db;
   scrollbar-width: none;

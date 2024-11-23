@@ -18,6 +18,10 @@
   align-items: center;
   gap: 21px;
 }
+.v_nav .v_nav_top img {
+  width: 41px;
+  height: 41px;
+}
 .v_nav .v_nav_top .button_wrap {
   display: flex;
   flex-direction: column;
@@ -32,6 +36,10 @@
   padding: 9px 6px;
   line-height: 20px;
   width: 78px;
+}
+.v_nav .v_nav_top .button_wrap .button img {
+  width: 34px;
+  height: 34px;
 }
 .v_nav .v_nav_top .button_wrap .button:hover {
   background-color: #393939;
@@ -59,4 +67,8 @@
 .v_nav .bottom_button:hover {
   background-color: #393939;
   border-radius: 12px;
+}
+.v_nav .bottom_button img {
+  width: 34px;
+  height: 36px;
 }

@@ -1,7 +1,7 @@
 import styles from '@/styles/settings.module.scss';
 import Image from 'next/image';
 
-export default function Order() {
+export default function Delivery() {
   //현재 주소가 /posts로 시작하면 상단에 포스트로 표기
 
   return (

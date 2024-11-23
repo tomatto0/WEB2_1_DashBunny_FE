@@ -13,6 +13,10 @@
   gap: 52px;
   margin-left: 27px;
 }
+.h_nav .h_nav_left img {
+  width: 36px;
+  height: 36px;
+}
 .h_nav .h_nav_left .status_box {
   display: flex;
   align-items: center;
@@ -42,4 +46,9 @@
   display: flex;
   justify-content: center;
   height: 68px;
+  align-items: center;
+}
+.h_nav .h_nav_right .window_status .window_wrap img {
+  width: 36px;
+  height: 36px;
 }

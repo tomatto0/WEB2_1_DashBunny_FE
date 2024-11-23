@@ -4,7 +4,7 @@ import styles from '@/styles/settings.module.scss';
 import Image from 'next/image';
 import { useState } from 'react';
 
-export default function Delivery() {
+export default function Order() {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleChange = () => {

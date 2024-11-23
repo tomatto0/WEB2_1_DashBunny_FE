@@ -1,7 +1,7 @@
-@import '../../../styles/style.scss';
+@use '../../../styles/style.scss';
 
 .h_nav {
-  background-color: $nav-background;
+  background-color: style.$nav-background;
   height: 68px;
   display: flex;
   align-items: center;
@@ -14,6 +14,11 @@
     font-weight: 600;
     gap: 52px;
     margin-left: 27px;
+
+    img {
+      width: 36px;
+      height: 36px;
+    }
 
     .status_box {
       display: flex;
@@ -46,6 +51,12 @@
         display: flex;
         justify-content: center;
         height: 68px;
+        align-items: center;
+
+        img {
+          width: 36px;
+          height: 36px;
+        }
       }
     }
   }
