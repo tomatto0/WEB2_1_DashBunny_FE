@@ -28,6 +28,7 @@ interface updateInfoData {
     promoShortsUrl: string;
 }
 
+//가게 기본 정보 업데이트
 export const updateBasicInfo = async(formData: updateInfoData) : Promise<updateInfoData> => {
   const request = updateAxiosClient();
   try{

@@ -1,8 +1,12 @@
+'use client';
+
 import styles from '@/styles/settings.module.scss';
-import Image from 'next/image';
+import Counter from '../component/Counter';
+import { useState } from 'react';
 
 export default function Delivery() {
-  //현재 주소가 /posts로 시작하면 상단에 포스트로 표기
+  const [fullTime, setFullTime] = useState(50);
+  const [shortTime, setShortTime] = useState(20);
 
   return (
     <>
@@ -39,44 +43,12 @@ export default function Delivery() {
 
           <div className={styles.count_form}>
             조리 + 배달시간
-            <div className={styles.setting_count}>
-              <Image
-                aria-hidden
-                src="/icons/count_minus.svg"
-                alt="Window icon"
-                width={24}
-                height={24}
-              />
-              20분
-              <Image
-                aria-hidden
-                src="/icons/count_plus.svg"
-                alt="Window icon"
-                width={24}
-                height={24}
-              />
-            </div>
+            <Counter number={fullTime} onStateChange={setFullTime} />
           </div>
 
           <div className={styles.count_form}>
             조리시간
-            <div className={styles.setting_count}>
-              <Image
-                aria-hidden
-                src="/icons/count_minus.svg"
-                alt="Window icon"
-                width={24}
-                height={24}
-              />
-              20분
-              <Image
-                aria-hidden
-                src="/icons/count_plus.svg"
-                alt="Window icon"
-                width={24}
-                height={24}
-              />
-            </div>
+            <Counter number={shortTime} onStateChange={setShortTime} />
           </div>
         </form>
       </div>

@@ -1,9 +1,12 @@
+'use client';
 "use strict";
 exports.__esModule = true;
 var settings_module_scss_1 = require("@/styles/settings.module.scss");
-var image_1 = require("next/image");
+var Counter_1 = require("../component/Counter");
+var react_1 = require("react");
 function Delivery() {
-    //현재 주소가 /posts로 시작하면 상단에 포스트로 표기
+    var _a = react_1.useState(50), fullTime = _a[0], setFullTime = _a[1];
+    var _b = react_1.useState(20), shortTime = _b[0], setShortTime = _b[1];
     return (React.createElement(React.Fragment, null,
         React.createElement("div", { className: settings_module_scss_1["default"].contents_wrap },
             React.createElement("form", { className: "", action: "", encType: "multipart/form-data" },
@@ -23,15 +26,9 @@ function Delivery() {
                 React.createElement("hr", { className: settings_module_scss_1["default"].margin_bottom }),
                 React.createElement("div", { className: settings_module_scss_1["default"].count_form },
                     "\uC870\uB9AC + \uBC30\uB2EC\uC2DC\uAC04",
-                    React.createElement("div", { className: settings_module_scss_1["default"].setting_count },
-                        React.createElement(image_1["default"], { "aria-hidden": true, src: "/icons/count_minus.svg", alt: "Window icon", width: 24, height: 24 }),
-                        "20\uBD84",
-                        React.createElement(image_1["default"], { "aria-hidden": true, src: "/icons/count_plus.svg", alt: "Window icon", width: 24, height: 24 }))),
+                    React.createElement(Counter_1["default"], { number: fullTime, onStateChange: setFullTime })),
                 React.createElement("div", { className: settings_module_scss_1["default"].count_form },
                     "\uC870\uB9AC\uC2DC\uAC04",
-                    React.createElement("div", { className: settings_module_scss_1["default"].setting_count },
-                        React.createElement(image_1["default"], { "aria-hidden": true, src: "/icons/count_minus.svg", alt: "Window icon", width: 24, height: 24 }),
-                        "20\uBD84",
-                        React.createElement(image_1["default"], { "aria-hidden": true, src: "/icons/count_plus.svg", alt: "Window icon", width: 24, height: 24 })))))));
+                    React.createElement(Counter_1["default"], { number: shortTime, onStateChange: setShortTime }))))));
 }
 exports["default"] = Delivery;

@@ -1,20 +1,107 @@
 'use client';
 
 import styles from '@/styles/settings.module.scss';
-import Image from 'next/image';
-import { useState } from 'react';
+import React, {
+  FormEvent,
+  ChangeEvent,
+  useReducer,
+  useEffect,
+  useState,
+} from 'react';
+import { useGetStoreOrderInfo } from '../hooks/useOrderInfo';
+import useUpdateStoreOrderInfo from '../hooks/useOrderInfo';
 
-export default function Order() {
+export default function OrderInfo() {
+  const { data, isLoading } = useGetStoreOrderInfo();
   const [isChecked, setIsChecked] = useState(false);
 
-  const handleChange = () => {
-    setIsChecked(!isChecked);
+  const initialState = {
+    isTakeout: '',
+    takeoutDiscount: 0,
+    minOrderAmount: 0,
+    deliveryTip: 0,
   };
+
+  function reducer(
+    state: typeof initialState,
+    action:
+      | { type: 'UPDATE_FIELD'; field: string; value: string | number }
+      | { type: 'SET_INITIAL_STATE'; value: typeof initialState },
+  ) {
+    switch (action.type) {
+      case 'UPDATE_FIELD':
+        return {
+          ...state,
+          [action.field]: action.value,
+        };
+      case 'SET_INITIAL_STATE':
+        return {
+          ...state,
+          ...action.value,
+        };
+      default:
+        return state;
+    }
+  }
+
+  const [formData, dispatch] = useReducer(reducer, initialState);
+
+  // Update state when `data` is loaded
+  useEffect(() => {
+    if (data) {
+      dispatch({
+        type: 'SET_INITIAL_STATE',
+        value: {
+          isTakeout: data.isTakeout || '',
+          takeoutDiscount: data.takeoutDiscount || 0,
+          minOrderAmount: data.minOrderAmount || 0,
+          deliveryTip: data.deliveryTip || 0,
+        },
+      });
+      if (data.isTakeout === 'On') {
+        setIsChecked(true);
+      }
+    }
+  }, [data]);
+
+  //입력될때마다 formdata가 업뎃되는 함수
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    dispatch({ type: 'UPDATE_FIELD', field: name, value });
+  };
+
+  //checkbox가 눌러질때마다 checkbox의 상태에 따라서 formdata가 업뎃되는 함수
+  const handleCheckBoxChange = () => {
+    setIsChecked(!isChecked);
+
+    dispatch({
+      type: 'UPDATE_FIELD',
+      field: 'isTakeout',
+      value: isChecked ? 'On' : 'Off',
+    });
+  };
+
+  const { mutate } = useUpdateStoreOrderInfo();
+
+  //폼데이터 제출
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // console.log(formData);
+    mutate(formData);
+  };
+
+  if (isLoading) return <div>로딩 중...</div>;
 
   return (
     <>
       <div className={styles.contents_wrap}>
-        <form className="" action="" encType="multipart/form-data">
+        <form
+          className=""
+          action=""
+          encType="multipart/form-data"
+          onSubmit={handleSubmit}
+        >
           <div className={styles.page_title}>
             주문정보{' '}
             <button className={styles.submit_button} type="submit">
@@ -29,7 +116,7 @@ export default function Order() {
                 type="checkbox"
                 className={`${styles.peer}`}
                 checked={isChecked}
-                onChange={handleChange}
+                onChange={handleCheckBoxChange}
                 id="포장주문여부"
               />
             </label>
@@ -45,6 +132,9 @@ export default function Order() {
               max="10000"
               step="100"
               className={styles.short_input_text}
+              name="takeoutDiscount"
+              value={formData.takeoutDiscount}
+              onChange={handleInputChange}
             ></input>
           </div>
 
@@ -58,6 +148,9 @@ export default function Order() {
               max="100000"
               step="100"
               className={styles.short_input_text}
+              name="minOrderAmount"
+              value={formData.minOrderAmount}
+              onChange={handleInputChange}
             />
           </div>
 
@@ -70,9 +163,12 @@ export default function Order() {
               type="number"
               placeholder="0"
               min="0"
-              max="100000"
+              max="10000"
               step="100"
               className={styles.short_input_text}
+              name="deliveryTip"
+              value={formData.deliveryTip}
+              onChange={handleInputChange}
             />
           </div>
         </form>

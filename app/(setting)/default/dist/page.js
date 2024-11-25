@@ -16,9 +16,8 @@ var settings_module_scss_1 = require("@/styles/settings.module.scss");
 var image_1 = require("next/image");
 var useStoreInfo_1 = require("./hooks/useStoreInfo");
 var react_1 = require("react");
-var useUpdateStoreInfo_1 = require("./hooks/useUpdateStoreInfo");
+var useStoreInfo_2 = require("./hooks/useStoreInfo");
 function BasicInfo() {
-    //현재 주소가 /posts로 시작하면 상단에 포스트로 표기
     var _a = useStoreInfo_1.useGetStoreBasicInfo(), data = _a.data, isLoading = _a.isLoading;
     var initialState = {
         storePhone: '',
@@ -54,12 +53,12 @@ function BasicInfo() {
             });
         }
     }, [data]);
-    //입력될때마다 formdatark 업뎃되는 함수
+    //입력될때마다 formdata가 업뎃되는 함수
     var handleInputChange = function (e) {
         var _a = e.target, name = _a.name, value = _a.value;
         dispatch({ type: 'UPDATE_FIELD', field: name, value: value });
     };
-    var mutate = useUpdateStoreInfo_1["default"]().mutate;
+    var mutate = useStoreInfo_2["default"]().mutate;
     //폼데이터 제출
     var handleSubmit = function (e) {
         e.preventDefault();
