@@ -1,22 +1,21 @@
 "use strict";
 exports.__esModule = true;
-exports.useUpdateStoreBasicInfo = exports.useGetStoreBasicInfo = void 0;
+exports.useUpdateStoreOrderInfo = exports.useGetStoreOrderInfo = void 0;
 var react_query_1 = require("@tanstack/react-query");
-var defaultInfo_1 = require("../api/defaultInfo");
 var react_query_2 = require("@tanstack/react-query");
-var defaultInfo_2 = require("../api/defaultInfo");
-exports.useGetStoreBasicInfo = function () {
+var orderInfo_1 = require("../api/orderInfo");
+exports.useGetStoreOrderInfo = function () {
     return react_query_1.useQuery({
-        queryKey: ["storeBasicInfo"],
-        queryFn: defaultInfo_1.getBasicInfo,
+        queryKey: ["storeOrderInfo"],
+        queryFn: orderInfo_1.getOrderInfo,
         staleTime: 1000,
         retry: 1,
         refetchOnWindowFocus: false
     });
 };
-exports.useUpdateStoreBasicInfo = function () {
+exports.useUpdateStoreOrderInfo = function () {
     var mutate = react_query_2.useMutation({
-        mutationFn: defaultInfo_2.updateBasicInfo,
+        mutationFn: orderInfo_1.updateOrderInfo,
         onSuccess: function () {
             localStorage.setItem("postSuccessMessage", "이 완료되었습니다.");
         },
@@ -26,4 +25,4 @@ exports.useUpdateStoreBasicInfo = function () {
     }).mutate;
     return { mutate: mutate };
 };
-exports["default"] = exports.useUpdateStoreBasicInfo;
+exports["default"] = exports.useUpdateStoreOrderInfo;

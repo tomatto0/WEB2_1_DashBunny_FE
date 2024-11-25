@@ -4,10 +4,9 @@ import styles from '@/styles/settings.module.scss';
 import Image from 'next/image';
 import { useGetStoreBasicInfo } from './hooks/useStoreInfo';
 import React, { FormEvent, ChangeEvent, useReducer, useEffect } from 'react';
-import useUpdateStoreInfo from './hooks/useUpdateStoreInfo';
+import useUpdateStoreBasicInfo from './hooks/useStoreInfo';
 
 export default function BasicInfo() {
-  //현재 주소가 /posts로 시작하면 상단에 포스트로 표기
   const { data, isLoading } = useGetStoreBasicInfo();
 
   const initialState = {
@@ -58,7 +57,7 @@ export default function BasicInfo() {
     }
   }, [data]);
 
-  //입력될때마다 formdatark 업뎃되는 함수
+  //입력될때마다 formdata가 업뎃되는 함수
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -66,7 +65,7 @@ export default function BasicInfo() {
     dispatch({ type: 'UPDATE_FIELD', field: name, value });
   };
 
-  const { mutate } = useUpdateStoreInfo();
+  const { mutate } = useUpdateStoreBasicInfo();
 
   //폼데이터 제출
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {

@@ -36,19 +36,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.updateBasicInfo = exports.getBasicInfo = void 0;
+exports.updateOrderInfo = exports.getOrderInfo = void 0;
 var axios_1 = require("axios");
 var axiosInstance_1 = require("@/utils/axios/axiosInstance");
 var storeId = 1;
-//가게 기본 정보 조회
-exports.getBasicInfo = function () { return __awaiter(void 0, void 0, Promise, function () {
+//가게 주문 정보 조회
+exports.getOrderInfo = function () { return __awaiter(void 0, void 0, Promise, function () {
     var response, error_1, axiosError;
     var _a, _b;
     return __generator(this, function (_c) {
         switch (_c.label) {
             case 0:
                 _c.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, axiosInstance_1.api.get("/store/basic-info/" + storeId)];
+                return [4 /*yield*/, axiosInstance_1.api.get("/store/order-info/" + storeId)];
             case 1:
                 response = _c.sent();
                 return [2 /*return*/, response.data];
@@ -56,15 +56,15 @@ exports.getBasicInfo = function () { return __awaiter(void 0, void 0, Promise, f
                 error_1 = _c.sent();
                 if (axios_1["default"].isAxiosError(error_1)) {
                     axiosError = error_1;
-                    throw new Error(((_b = (_a = axiosError.response) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.message) || '가게 기본 정보 조회 실패 ');
+                    throw new Error(((_b = (_a = axiosError.response) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.message) || '가게 주문정보 조회 실패 ');
                 }
                 throw error_1;
             case 3: return [2 /*return*/];
         }
     });
 }); };
-//가게 기본 정보 업데이트
-exports.updateBasicInfo = function (formData) { return __awaiter(void 0, void 0, Promise, function () {
+//가게 주문 정보 업데이트
+exports.updateOrderInfo = function (formData) { return __awaiter(void 0, void 0, Promise, function () {
     var request, response, error_2, axiosError;
     var _a, _b;
     return __generator(this, function (_c) {
@@ -74,7 +74,7 @@ exports.updateBasicInfo = function (formData) { return __awaiter(void 0, void 0,
                 _c.label = 1;
             case 1:
                 _c.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, request.patch("/store/basic-info/" + storeId, formData)];
+                return [4 /*yield*/, request.put("/store/order-info/" + storeId, formData)];
             case 2:
                 response = _c.sent();
                 console.log('formData:', formData);
@@ -83,7 +83,7 @@ exports.updateBasicInfo = function (formData) { return __awaiter(void 0, void 0,
                 error_2 = _c.sent();
                 if (axios_1["default"].isAxiosError(error_2)) {
                     axiosError = error_2;
-                    throw new Error(((_b = (_a = axiosError.response) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.message) || '가게 기본 정보 업데이트 실패 ');
+                    throw new Error(((_b = (_a = axiosError.response) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.message) || '가게 주문정보 업데이트 실패 ');
                 }
                 throw error_2;
             case 4: return [2 /*return*/];
