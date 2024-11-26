@@ -37,10 +37,10 @@ function PauseModal(props) {
         var _a = e.target, name = _a.name, value = _a.value;
         dispatch({ type: 'UPDATE_FIELD', field: name, value: value });
     };
-    var mutate = useOperationInfo_1.useUpdatePauseTime().mutate;
+    var updatePauseTimeMutate = useOperationInfo_1.useUpdatePauseTime().updatePauseTimeMutate;
     //폼데이터 제출
     var handleSubmit = function () {
-        mutate(formData);
+        updatePauseTimeMutate(formData);
         clickModal();
     };
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
