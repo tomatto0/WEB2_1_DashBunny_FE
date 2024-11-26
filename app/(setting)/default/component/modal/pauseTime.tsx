@@ -40,11 +40,11 @@ export default function PauseModal(props: ClickModalProps) {
     dispatch({ type: 'UPDATE_FIELD', field: name, value });
   };
 
-  const { mutate } = useUpdatePauseTime();
+  const { updatePauseTimeMutate } = useUpdatePauseTime();
 
   //폼데이터 제출
   const handleSubmit = () => {
-    mutate(formData);
+    updatePauseTimeMutate(formData);
     clickModal();
   };
 
