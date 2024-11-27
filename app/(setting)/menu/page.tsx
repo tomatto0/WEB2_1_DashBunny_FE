@@ -3,7 +3,7 @@
 import styles from '@/styles/menu.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useReducer, useEffect, useState } from 'react';
+import React, { useReducer, useEffect, useState, useMemo } from 'react';
 import {
   useGetAllMenu,
   useGetGroupMenus,
@@ -14,11 +14,14 @@ import {
 import { menu, menuGroup } from '@/utils/model/menu';
 
 export default function menuSetting() {
-  const { data, isLoading } = useGetAllMenu();
+  const { data, isError, isLoading } = useGetAllMenu();
 
   //menu array를 setState를 통해서 관리
-  const menuArray = data?.menus || [];
-  const menuGroupArray = data?.menuGroups || [];
+  const menuArray = useMemo(() => data?.menus || [], [data?.menus]);
+  const menuGroupArray = useMemo(
+    () => data?.menuGroups || [],
+    [data?.menuGroups],
+  );
   const [menuArrayState, setMenuArrayState] = useState(menuArray);
   const [activeGroupId, setActiveGroupId] = useState<number | null>(null); // 활성화된 그룹 ID
 
@@ -75,10 +78,13 @@ export default function menuSetting() {
   // 다중 삭제/품절을 요청하기 위한 내용
   // menuArray를 받아서 기본 initialstate를 만드는 reduce함수
   const createInitialState = (menuArray: menu[]) =>
-    menuArray.reduce((state, menu) => {
-      state[menu.menuId] = false; // 초기값: 모두 체크되지 않은 상태
-      return state;
-    }, {} as Record<number, boolean>);
+    menuArray.reduce(
+      (state, menu) => {
+        state[menu.menuId] = false; // 초기값: 모두 체크되지 않은 상태
+        return state;
+      },
+      {} as Record<number, boolean>,
+    );
 
   const initialState = createInitialState(menuArray);
 
@@ -136,6 +142,7 @@ export default function menuSetting() {
   };
 
   if (isLoading) return <div>로딩 중...</div>;
+  if (isError) return <div>에러 발생</div>;
 
   return (
     <>

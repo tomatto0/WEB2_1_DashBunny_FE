@@ -4,16 +4,8 @@ import styles from '@/styles/settings.module.scss';
 import { useState, useReducer, FormEvent, ChangeEvent } from 'react';
 import { useGetGroupMenuOnly } from '../hooks/useMenu';
 
-type Menu = {
-  groupId: number;
-  groupName: string;
-};
-
 export default function addMenu() {
-  const { data, isLoading } = useGetGroupMenuOnly() as {
-    data: Menu[] | undefined;
-    isLoading: boolean;
-  };
+  const { data, isError, isLoading } = useGetGroupMenuOnly();
 
   const groupMenus = data || [];
   console.log('page.tsx ', groupMenus);
@@ -92,6 +84,7 @@ export default function addMenu() {
   };
 
   if (isLoading) return <div>로딩 중...</div>;
+  if (isError) return <div>에러 발생</div>;
 
   return (
     <>

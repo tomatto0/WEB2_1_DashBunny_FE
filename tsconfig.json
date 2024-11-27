@@ -23,6 +23,6 @@
       "@styles/*": ["./styles/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.js", "app/api/store/basic-info/[storeId]/route.js"],
-  "exclude": ["node_modules", "app/api"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.js", "app/_api_disabled/store/basic-info/[storeId]/route.js"],
+  "exclude": ["node_modules", "app/_api_disabled"]
 }

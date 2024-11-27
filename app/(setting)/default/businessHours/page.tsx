@@ -1,7 +1,14 @@
 'use client';
 
 import styles from '@/styles/settings.module.scss';
-import { useState, FormEvent, ChangeEvent, useReducer, useEffect } from 'react';
+import {
+  useState,
+  FormEvent,
+  ChangeEvent,
+  useReducer,
+  useEffect,
+  useCallback,
+} from 'react';
 import {
   useGetOperationInfo,
   useUpdateOperationInfo,
@@ -48,11 +55,9 @@ export default function businessHours() {
 
   const [formData, dispatch] = useReducer(reducer, initialState);
 
-  const makePauseTime = () => {
-    const pauseSentence = `현재 설정된 임시중지 기간: ${data?.pauseStartTime} ~ ${data?.pauseEndTime}`;
-
-    return pauseSentence;
-  };
+  const makePauseTime = useCallback(() => {
+    return `현재 설정된 임시중지 기간: ${data?.pauseStartTime} ~ ${data?.pauseEndTime}`;
+  }, [data]);
 
   useEffect(() => {
     if (data) {
@@ -70,7 +75,7 @@ export default function businessHours() {
         },
       });
     }
-  }, [data]);
+  }, [data, makePauseTime]);
 
   //입력될때마다 formdata가 업뎃되는 함수
   const handleInputChange = (

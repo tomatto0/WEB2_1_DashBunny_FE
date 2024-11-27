@@ -9,18 +9,18 @@ export const useGetAllMenu = () => {
   return useQuery<menuList>({
     queryKey: ["MenuList"],
     queryFn: () => getAllMenu(),
-    staleTime: 1000, // 1초
+    staleTime: 5000, // 1초
     retry: 1,
     refetchOnWindowFocus: false,
   })
 }
 
 export const useGetGroupMenus = (groupId: number) => {
-  console.log("useGetGroupMenus")
+  console.log("useGetGroupMenus groupId" , groupId)
   return useQuery<menuList['menus']>({
-    queryKey: ["MenuList", groupId],
+    queryKey: ["GroupMenus", groupId],
     queryFn: () => getGroupMenus(groupId),
-    staleTime: 1000, // 1초
+    staleTime: 5000, // 1초
     retry: 1,
     refetchOnWindowFocus: false,
   })
@@ -29,7 +29,7 @@ export const useGetGroupMenus = (groupId: number) => {
 export const useGetGroupMenuOnly = () => {
   console.log("useMenu useGetGroupMenuOnly");
   return useQuery<menuGroup[]>({
-    queryKey: ["MenuList"],
+    queryKey: ["MenuGroup"],
     queryFn: () => getGroupMenuOnly(),
     staleTime: 1000, // 1초
     retry: 1,
@@ -43,13 +43,11 @@ interface UpdateSingleSoldOutInput{
 }
 
 export const useSingleSoldOut = () => {
-  const queryClient = useQueryClient();
+
   const { mutate: updateSingleSoldOutMutate } = useMutation({
-    
     mutationFn: ({isSoldOut, menuId}: UpdateSingleSoldOutInput) => updateSingleSoldOut({isSoldOut, menuId}), 
     onSuccess: () => {
       localStorage.setItem("postSuccessMessage", "이 완료되었습니다.");
-      queryClient.invalidateQueries({ queryKey: ['MenuList'] });
     },
     onError(error) {
       console.log(error);
@@ -66,7 +64,7 @@ export const useMultifleSoldOut = () => {
     mutationFn: (selectedIds: number[]) => updateMultifleSoldOut(selectedIds), 
     onSuccess: () => {
       localStorage.setItem("postSuccessMessage", "이 완료되었습니다.");
-      queryClient.invalidateQueries({ queryKey: ['MenuList'] });
+      queryClient.invalidateQueries({ queryKey: ['AllMenus'] });
     },
     onError(error) {
       console.log(error);
@@ -81,7 +79,7 @@ export const useMultifleDelete = () => {
     mutationFn: (selectedIds: number[]) => updateMultifleDelete(selectedIds), 
     onSuccess: () => {
       localStorage.setItem("postSuccessMessage", "이 완료되었습니다.");
-      queryClient.invalidateQueries({ queryKey: ['MenuList'] });
+      queryClient.invalidateQueries({ queryKey: ['AllMenus'] });
     },
     onError(error) {
       console.log(error);
