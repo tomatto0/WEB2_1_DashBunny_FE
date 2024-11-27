@@ -1,7 +1,7 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query"
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { menuList } from "@/utils/model/menu";
-import { getAllMenu, getGroupMenu, updateMultifleDelete, updateMultifleSoldOut } from "../api/menu";
+import { getAllMenu, getGroupMenuOnly, getGroupMenus, updateMultifleDelete, updateMultifleSoldOut, updateSingleSoldOut } from "../api/menu";
 
 
 export const useGetAllMenu = () => {
@@ -14,15 +14,47 @@ export const useGetAllMenu = () => {
   })
 }
 
-export const useGetGroupMenu = (groupId: number) => {
+export const useGetGroupMenus = (groupId: number) => {
   return useQuery<menuList['menus']>({
     queryKey: ["MenuList", groupId],
-    queryFn: () => getGroupMenu(groupId),
+    queryFn: () => getGroupMenus(groupId),
     staleTime: 1000, // 1초
     retry: 1,
     refetchOnWindowFocus: false,
   })
 }
+
+export const useGetGroupMenuOnly = () => {
+  return useQuery<menuList['menuGroups']>({
+    queryKey: ["MenuList"],
+    queryFn: () => getGroupMenuOnly(),
+    staleTime: 1000, // 1초
+    retry: 1,
+    refetchOnWindowFocus: false,
+  })
+}
+
+interface UpdateSingleSoldOutInput{
+  menuId: number;
+  isSoldOut: boolean;
+}
+
+export const useSingleSoldOut = () => {
+  const queryClient = useQueryClient();
+  const { mutate: updateSingleSoldOutMutate } = useMutation({
+    
+    mutationFn: ({isSoldOut, menuId}: UpdateSingleSoldOutInput) => updateSingleSoldOut({isSoldOut, menuId}), 
+    onSuccess: () => {
+      localStorage.setItem("postSuccessMessage", "이 완료되었습니다.");
+      queryClient.invalidateQueries({ queryKey: ['MenuList'] });
+    },
+    onError(error) {
+      console.log(error);
+    },
+  });
+  return {updateSingleSoldOutMutate};
+};
+
 
 export const useMultifleSoldOut = () => {
   const queryClient = useQueryClient();

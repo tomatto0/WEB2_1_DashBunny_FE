@@ -1,8 +1,6 @@
 'use client';
 
 import styles from '@/styles/settings.module.scss';
-import Image from 'next/image';
-import { operationInfo } from '@/utils/model/store';
 import { useState, FormEvent, ChangeEvent, useReducer, useEffect } from 'react';
 import {
   useGetOperationInfo,
