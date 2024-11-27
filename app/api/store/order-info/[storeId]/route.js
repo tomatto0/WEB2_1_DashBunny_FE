@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 export const dummyOrderInfo = {
   isTakeout: 'On',
@@ -18,7 +18,7 @@ export async function GET() {
 //   "deliveryTip": "기본 배달 팁"
 // }
 
-export async function PUT(req) {
+export async function PUT() {
   try {
     return NextResponse.json(
       { message: '가게 주문정보 업데이트 성공' },

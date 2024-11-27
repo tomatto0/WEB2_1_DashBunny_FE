@@ -20,7 +20,7 @@ export default function PauseModal(props: ClickModalProps) {
 
   function reducer(
     state: typeof initialState,
-    action: { type: 'UPDATE_FIELD'; field: string; value: any },
+    action: { type: 'UPDATE_FIELD'; field: string; value: string },
   ) {
     switch (action.type) {
       case 'UPDATE_FIELD':

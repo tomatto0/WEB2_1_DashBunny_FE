@@ -7,6 +7,7 @@ import { useState } from 'react';
 export default function Delivery() {
   const [fullTime, setFullTime] = useState(50);
   const [shortTime, setShortTime] = useState(20);
+  console.log('shortTime: ', shortTime);
 
   return (
     <>

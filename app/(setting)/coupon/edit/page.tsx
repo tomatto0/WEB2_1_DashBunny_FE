@@ -1,5 +1,4 @@
 import styles from '@/styles/settings.module.scss';
-import Image from 'next/image';
 
 export default function couponAdd() {
   //현재 주소가 /posts로 시작하면 상단에 포스트로 표기

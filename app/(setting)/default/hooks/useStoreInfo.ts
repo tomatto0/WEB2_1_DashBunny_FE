@@ -1,4 +1,4 @@
-import { useQuery, UseQueryResult } from "@tanstack/react-query"
+import { useQuery} from "@tanstack/react-query"
 import { getBasicInfo } from "../api/defaultInfo"
 import { basicInfo } from "@/utils/model/store";
 import { useMutation } from "@tanstack/react-query";

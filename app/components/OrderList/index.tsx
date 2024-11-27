@@ -1,7 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
 import styles from './OrderList.module.scss';
-import Link from 'next/link';
 
 export default function OrderList() {
   return (

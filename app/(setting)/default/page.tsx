@@ -20,7 +20,7 @@ export default function BasicInfo() {
   function reducer(
     state: typeof initialState,
     action:
-      | { type: 'UPDATE_FIELD'; field: string; value: any }
+      | { type: 'UPDATE_FIELD'; field: string; value: number | string }
       | { type: 'SET_INITIAL_STATE'; value: typeof initialState },
   ) {
     switch (action.type) {

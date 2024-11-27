@@ -1,4 +1,4 @@
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse} from "next/server";
 
 export const orderinfo= {
   "isTakeout": "포장 여부 (On/Off)",

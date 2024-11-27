@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 export const dummyOperationInfo = {
   openingHours: '주중 9시~ 밤 12시',

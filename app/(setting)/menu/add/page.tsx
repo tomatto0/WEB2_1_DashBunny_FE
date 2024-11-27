@@ -1,7 +1,7 @@
 'use client';
 
 import styles from '@/styles/settings.module.scss';
-import { useState, useReducer, useEffect, FormEvent, ChangeEvent } from 'react';
+import { useState, useReducer, FormEvent, ChangeEvent } from 'react';
 import { useGetGroupMenuOnly } from '../hooks/useMenu';
 
 type Menu = {
@@ -16,7 +16,7 @@ export default function addMenu() {
   };
 
   const groupMenus = data || [];
-  console.log(groupMenus);
+  console.log('page.tsx ', groupMenus);
 
   const [isChecked, setIsChecked] = useState(false);
   const [isStoreChecked, setIsStoreChecked] = useState(false);

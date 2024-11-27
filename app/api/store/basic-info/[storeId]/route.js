@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 export const dummyStoreInfo = {
   storeName: '대쉬버니',
@@ -28,7 +28,7 @@ export async function GET() {
 //   "ShortsUrl": "가게 홍보 쇼츠 URL"
 // }
 
-export async function PATCH(req) {
+export async function PATCH() {
   try {
     return NextResponse.json(
       { message: '게시글 업데이트 성공' },

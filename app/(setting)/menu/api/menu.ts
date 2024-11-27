@@ -1,7 +1,7 @@
 import axios, {AxiosError} from "axios";
 import { api, updateAxiosClient } from "@/utils/axios/axiosInstance";
 import { ApiError } from "next/dist/server/api-utils";
-import { menuList } from "@/utils/model/menu";
+import { menuList, menuGroup } from "@/utils/model/menu";
 
 const storeId = 'user_1';
 
@@ -32,9 +32,10 @@ export const getGroupMenus = async(groupId: number): Promise<menuList['menus']> 
   }
 }
 
-export const getGroupMenuOnly = async(): Promise<menuList['menuGroups']> => {
+export const getGroupMenuOnly = async(): Promise<menuGroup[]> => {
+  console.log("getGroupMenuOnly");
   try{
-    const response = await api.get<menuList['menuGroups']>(`/store/create/menu/${storeId}`);
+    const response = await api.get<menuGroup[]>(`/store/create/menu/${storeId}`);
     return response.data
   } catch(error) {
     if (axios.isAxiosError(error)) {

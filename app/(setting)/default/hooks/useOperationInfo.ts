@@ -1,5 +1,5 @@
-import { useQuery, UseQueryResult } from "@tanstack/react-query"
-import { operationInfo, orderInfo } from "@/utils/model/store";
+import { useQuery} from "@tanstack/react-query"
+import { operationInfo} from "@/utils/model/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getOperationInfo, updateOperationInfo, updatePauseInfo, endPauseInfo } from "../api/operationInfo";
 

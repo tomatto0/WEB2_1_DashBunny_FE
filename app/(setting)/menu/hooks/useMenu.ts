@@ -1,13 +1,14 @@
-import { useQuery, UseQueryResult } from "@tanstack/react-query"
+import { useQuery} from "@tanstack/react-query"
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { menuList } from "@/utils/model/menu";
+import { menuList, menuGroup } from "@/utils/model/menu";
 import { getAllMenu, getGroupMenuOnly, getGroupMenus, updateMultifleDelete, updateMultifleSoldOut, updateSingleSoldOut } from "../api/menu";
 
 
 export const useGetAllMenu = () => {
+  console.log("useGetAllMenu")
   return useQuery<menuList>({
     queryKey: ["MenuList"],
-    queryFn: getAllMenu,
+    queryFn: () => getAllMenu(),
     staleTime: 1000, // 1초
     retry: 1,
     refetchOnWindowFocus: false,
@@ -15,6 +16,7 @@ export const useGetAllMenu = () => {
 }
 
 export const useGetGroupMenus = (groupId: number) => {
+  console.log("useGetGroupMenus")
   return useQuery<menuList['menus']>({
     queryKey: ["MenuList", groupId],
     queryFn: () => getGroupMenus(groupId),
@@ -25,7 +27,8 @@ export const useGetGroupMenus = (groupId: number) => {
 }
 
 export const useGetGroupMenuOnly = () => {
-  return useQuery<menuList['menuGroups']>({
+  console.log("useMenu useGetGroupMenuOnly");
+  return useQuery<menuGroup[]>({
     queryKey: ["MenuList"],
     queryFn: () => getGroupMenuOnly(),
     staleTime: 1000, // 1초

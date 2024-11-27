@@ -7,7 +7,7 @@ import { useReducer, useEffect } from 'react';
 
 interface Counterprops {
   number: number;
-  onStateChange: (newState: number) => void;
+  onStateChange: (state: number) => void;
 }
 
 type Action =
