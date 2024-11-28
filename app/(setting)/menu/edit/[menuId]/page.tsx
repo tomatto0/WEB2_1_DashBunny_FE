@@ -2,17 +2,20 @@
 
 import styles from '@/styles/settings.module.scss';
 import { useState, useReducer, FormEvent, ChangeEvent } from 'react';
-import { useGetGroupMenuOnly } from '../hooks/useMenu';
+import { useParams } from 'next/navigation';
+import { useGetSingleMenu } from '../../hooks/useMenu';
 
 export default function addMenu() {
-  const { data, isError, isLoading } = useGetGroupMenuOnly();
-  const groupMenus = data || [];
+  const params = useParams(); // 현재 URL의 params 사용하여 post ID 가져오기
+  const menuId = Number(params.menuId);
+  const { data, isError, isLoading } = useGetSingleMenu(menuId);
 
-  //재고관리, 품절표시 토글 상태 관리
+  const groupMenus = data || [];
+  console.log('page.tsx ', groupMenus);
+
   const [isChecked, setIsChecked] = useState(false);
   const [isStoreChecked, setIsStoreChecked] = useState(false);
 
-  //초깃값 설정
   const initialState = {
     menuName: '',
     menuGroupId: 0,
@@ -63,7 +66,7 @@ export default function addMenu() {
     });
   };
 
-  //품절 checkbox가 눌러질때마다 checkbox의 상태에 따라서 formdata가 업뎃되는 함수
+  //checkbox가 눌러질때마다 checkbox의 상태에 따라서 formdata가 업뎃되는 함수
   const handleSoldOutChange = () => {
     setIsStoreChecked(!isStoreChecked);
 
@@ -73,6 +76,8 @@ export default function addMenu() {
       value: isStoreChecked,
     });
   };
+
+  // const { mutate } = useUpdateStoreOrderInfo();
 
   //폼데이터 제출
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -107,7 +112,7 @@ export default function addMenu() {
             />
           </div>
 
-          <div className={styles.formtitle}>
+          {/* <div className={styles.formtitle}>
             메뉴 그룹 선택
             <select
               className={styles.long_selector}
@@ -126,7 +131,7 @@ export default function addMenu() {
                 </option>
               ))}
             </select>
-          </div>
+          </div> */}
 
           <div className={styles.formtitle}>
             가격
@@ -140,18 +145,6 @@ export default function addMenu() {
               className={`${styles.long_input_text}`}
               name="price"
               value={formData.price}
-              onChange={handleInputChange}
-            />
-          </div>
-
-          <div className={styles.formtitle}>
-            메뉴 소개
-            <input
-              type="text"
-              placeholder="메뉴 소개를 입력해주세요"
-              className={`${styles.long_input_text}`}
-              name="menuContent"
-              value={formData.menuContent}
               onChange={handleInputChange}
             />
           </div>

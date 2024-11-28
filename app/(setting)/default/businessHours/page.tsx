@@ -20,7 +20,7 @@ export default function businessHours() {
   const { data, isLoading } = useGetOperationInfo();
   const [pauseTime, setPauseTime] = useState('현재 영업중지 상태가 아닙니다');
 
-  //시간설정 NAV 함수
+  //일시중지 설정 모달 온오프
   const [showPauseModal, setPauseModal] = useState(false);
   const clickModal = () => setPauseModal(!showPauseModal);
 

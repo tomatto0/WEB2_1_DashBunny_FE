@@ -26,8 +26,10 @@ export default function menuSetting() {
   const [activeGroupId, setActiveGroupId] = useState<number | null>(null); // 활성화된 그룹 ID
 
   useEffect(() => {
-    if (menuArray) {
+    if (menuArray.length > 0) {
       setMenuArrayState(menuArray);
+      dispatch({ type: 'RESET_CHECKED' });
+      console.log('menuArray: 랜더링');
     }
   }, [menuArray]);
 
@@ -108,11 +110,6 @@ export default function menuSetting() {
   };
 
   const [checkedState, dispatch] = useReducer(reducer, initialState);
-
-  useEffect(() => {
-    setMenuArrayState(menuArray); // 데이터가 바뀌면 상태 초기화
-    dispatch({ type: 'RESET_CHECKED' });
-  }, [menuArray]);
 
   // 사이드 Handle 체크박스 토글시 checkedState에 업데이트
   const handleCheckboxToggle = (menuId: number) => {

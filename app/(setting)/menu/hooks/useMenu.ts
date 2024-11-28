@@ -1,20 +1,34 @@
 import { useQuery} from "@tanstack/react-query"
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { menuList, menuGroup } from "@/utils/model/menu";
-import { getAllMenu, getGroupMenuOnly, getGroupMenus, updateMultifleDelete, updateMultifleSoldOut, updateSingleSoldOut } from "../api/menu";
+import { menuList, menuGroup, menu } from "@/utils/model/menu";
+import { getAllMenu, getSingleMenu, getGroupMenuOnly, getGroupMenus, updateMultifleDelete, updateMultifleSoldOut, updateSingleSoldOut } from "../api/menu";
 
-
+//전체 메뉴 조회
 export const useGetAllMenu = () => {
   console.log("useGetAllMenu")
   return useQuery<menuList>({
     queryKey: ["MenuList"],
     queryFn: () => getAllMenu(),
+    staleTime: 5000, // 5초
+    gcTime: 1000 * 60 * 10, // 30분
+    retry: 1,
+    refetchOnWindowFocus: false,
+  })
+}
+
+// 단건 메뉴 조회
+export const useGetSingleMenu = (menuId: number) => {
+  console.log("useGetSingleMenu")
+  return useQuery<menu>({
+    queryKey: ["SingleMenu", menuId],
+    queryFn: () => getSingleMenu(menuId),
     staleTime: 5000, // 1초
     retry: 1,
     refetchOnWindowFocus: false,
   })
 }
 
+//특정 메뉴 그룹의 메뉴 리스트 조회
 export const useGetGroupMenus = (groupId: number) => {
   console.log("useGetGroupMenus groupId" , groupId)
   return useQuery<menuList['menus']>({
@@ -26,6 +40,7 @@ export const useGetGroupMenus = (groupId: number) => {
   })
 }
 
+//메뉴 그룹 리스트 조회
 export const useGetGroupMenuOnly = () => {
   console.log("useMenu useGetGroupMenuOnly");
   return useQuery<menuGroup[]>({
@@ -37,13 +52,14 @@ export const useGetGroupMenuOnly = () => {
   })
 }
 
+// 단건 메뉴 품절 처리
+
 interface UpdateSingleSoldOutInput{
   menuId: number;
   isSoldOut: boolean;
 }
 
 export const useSingleSoldOut = () => {
-
   const { mutate: updateSingleSoldOutMutate } = useMutation({
     mutationFn: ({isSoldOut, menuId}: UpdateSingleSoldOutInput) => updateSingleSoldOut({isSoldOut, menuId}), 
     onSuccess: () => {
@@ -56,7 +72,7 @@ export const useSingleSoldOut = () => {
   return {updateSingleSoldOutMutate};
 };
 
-
+// 다중 메뉴 품절 처리
 export const useMultifleSoldOut = () => {
   const queryClient = useQueryClient();
   const { mutate: updateMultifleSoldOutMutate } = useMutation({
@@ -73,6 +89,7 @@ export const useMultifleSoldOut = () => {
   return {updateMultifleSoldOutMutate};
 };
 
+//다중 메뉴 삭제처리
 export const useMultifleDelete = () => {
   const queryClient = useQueryClient();
   const { mutate: updateMultifleDeleteMutate } = useMutation({

@@ -42,6 +42,10 @@
     background-color: style.$bunny-orange;
     color: white;
     border-radius: 8px;
+    img {
+      width: 14px;
+      height: 14px;
+    }
   }
 }
 
@@ -83,7 +87,6 @@
       border-radius: 2px;
       padding: 6px 11px;
       border: 1px solid style.$gray-200;
-      margin-right: 9px;
     }
 
     .soldout_button {
@@ -92,6 +95,7 @@
       border-radius: 2px;
       padding: 6px 11px;
       border: 1px solid style.$gray-200;
+      margin-right: 9px;
     }
   }
 
