@@ -1,24 +1,23 @@
 'use client';
 
 import styles from '@/styles/settings.module.scss';
-import { useState, useReducer, FormEvent, ChangeEvent } from 'react';
-import { useParams } from 'next/navigation';
-import { useGetSingleMenu } from '../../hooks/useMenu';
+import { useEffect, useState, useReducer, FormEvent, ChangeEvent } from 'react';
+import { useGetSingleMenu, useUpdateMenu } from '../../hooks/useMenu';
+import { useRouter } from 'next/navigation';
 
-export default function addMenu() {
-  const params = useParams(); // 현재 URL의 params 사용하여 post ID 가져오기
-  const menuId = Number(params.menuId);
+export default function addMenu({ menuId }: { menuId: number }) {
+  const router = useRouter();
   const { data, isError, isLoading } = useGetSingleMenu(menuId);
 
-  const groupMenus = data || [];
-  console.log('page.tsx ', groupMenus);
+  const menuInfo = data?.menu;
+  const groupMenus = data?.menuGroups || [];
 
   const [isChecked, setIsChecked] = useState(false);
   const [isStoreChecked, setIsStoreChecked] = useState(false);
 
   const initialState = {
     menuName: '',
-    menuGroupId: 0,
+    groupId: 0,
     price: 0,
     menuContent: '',
     stockAvaliable: false,
@@ -28,11 +27,13 @@ export default function addMenu() {
 
   function reducer(
     state: typeof initialState,
-    action: {
-      type: 'UPDATE_FIELD';
-      field: string;
-      value: string | number | boolean;
-    },
+    action:
+      | {
+          type: 'UPDATE_FIELD';
+          field: string;
+          value: string | number | boolean;
+        }
+      | { type: 'SET_INITIAL_STATE'; value: typeof initialState },
   ) {
     switch (action.type) {
       case 'UPDATE_FIELD':
@@ -40,12 +41,41 @@ export default function addMenu() {
           ...state,
           [action.field]: action.value,
         };
+      case 'SET_INITIAL_STATE':
+        return {
+          ...state,
+          ...action.value,
+        };
       default:
         return state;
     }
   }
 
   const [formData, dispatch] = useReducer(reducer, initialState);
+
+  // Update state when `data` is loaded
+  useEffect(() => {
+    if (menuInfo) {
+      dispatch({
+        type: 'SET_INITIAL_STATE',
+        value: {
+          menuName: menuInfo.menuName ?? '',
+          groupId: menuInfo.groupId ?? 0,
+          price: menuInfo.price ?? 0,
+          menuContent: menuInfo.menuContent ?? '',
+          stockAvaliable: menuInfo.stockAvaliable ?? false,
+          menuStock: menuInfo.menuStock ?? 0,
+          isSoldOut: menuInfo.isSoldOut ?? false,
+        },
+      });
+      if (menuInfo.stockAvaliable === true) {
+        setIsChecked(true);
+      }
+      if (menuInfo.isSoldOut === true) {
+        setIsChecked(true);
+      }
+    }
+  }, [menuInfo]);
 
   //입력될때마다 formdata가 업뎃되는 함수
   const handleInputChange = (
@@ -57,33 +87,41 @@ export default function addMenu() {
 
   //checkbox가 눌러질때마다 checkbox의 상태에 따라서 formdata가 업뎃되는 함수
   const handleStockChange = () => {
-    setIsChecked(!isChecked);
+    const newChecked = !isChecked; // 변경 후 값 저장
+    setIsChecked(newChecked);
 
     dispatch({
       type: 'UPDATE_FIELD',
-      field: 'stockAvailable',
-      value: isChecked,
+      field: 'stockAvaliable',
+      value: newChecked,
     });
   };
 
   //checkbox가 눌러질때마다 checkbox의 상태에 따라서 formdata가 업뎃되는 함수
   const handleSoldOutChange = () => {
-    setIsStoreChecked(!isStoreChecked);
+    const newStoreChecked = !isStoreChecked; // 변경 후 값 저장
+    setIsStoreChecked(newStoreChecked);
 
     dispatch({
       type: 'UPDATE_FIELD',
       field: 'isSoldOut',
-      value: isStoreChecked,
+      value: newStoreChecked,
     });
   };
 
-  // const { mutate } = useUpdateStoreOrderInfo();
+  const { updateMenuMutate } = useUpdateMenu();
 
   //폼데이터 제출
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(formData);
+    try {
+      await updateMenuMutate({ formData, menuId });
+      router.push('/menu');
+    } catch (error) {
+      console.error('Error updating:', error);
+      alert('메뉴 수정 실패');
+    }
   };
 
   if (isLoading) return <div>로딩 중...</div>;
@@ -112,13 +150,14 @@ export default function addMenu() {
             />
           </div>
 
-          {/* <div className={styles.formtitle}>
+          <div className={styles.formtitle}>
             메뉴 그룹 선택
             <select
               className={styles.long_selector}
               onChange={handleInputChange}
               name="menuGroupId"
               disabled={!groupMenus.length}
+              value={menuInfo?.groupId}
             >
               <option value="">
                 {isLoading
@@ -131,7 +170,7 @@ export default function addMenu() {
                 </option>
               ))}
             </select>
-          </div> */}
+          </div>
 
           <div className={styles.formtitle}>
             가격

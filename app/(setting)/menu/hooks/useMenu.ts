@@ -1,7 +1,8 @@
 import { useQuery} from "@tanstack/react-query"
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { menuList, menuGroup, menu } from "@/utils/model/menu";
-import { getAllMenu, getSingleMenu, getGroupMenuOnly, getGroupMenus, updateMultifleDelete, updateMultifleSoldOut, updateSingleSoldOut } from "../api/menu";
+import { getAllMenu, getSingleMenu, getGroupMenuOnly, getGroupMenus, updateMultifleDelete, updateMultifleSoldOut, updateSingleSoldOut, addMenu, updateMenu } from "../api/menu";
+
 
 //전체 메뉴 조회
 export const useGetAllMenu = () => {
@@ -16,10 +17,15 @@ export const useGetAllMenu = () => {
   })
 }
 
+interface singleMenu {
+  menu: menu,
+  menuGroups: menuGroup[]
+}
+
 // 단건 메뉴 조회
 export const useGetSingleMenu = (menuId: number) => {
   console.log("useGetSingleMenu")
-  return useQuery<menu>({
+  return useQuery<singleMenu>({
     queryKey: ["SingleMenu", menuId],
     queryFn: () => getSingleMenu(menuId),
     staleTime: 5000, // 1초
@@ -51,6 +57,41 @@ export const useGetGroupMenuOnly = () => {
     refetchOnWindowFocus: false,
   })
 }
+
+
+//신규 메뉴 추가
+export const useAddMenu = () => {
+  const { mutate: addMenuMutate } = useMutation({
+    mutationFn: (formData: Partial<menu>) => addMenu(formData), 
+    onSuccess: () => {
+      localStorage.setItem("postSuccessMessage", "이 완료되었습니다.");
+    },
+    onError(error) {
+      console.log(error);
+    },
+  });
+  return {addMenuMutate};
+};
+
+interface UpdateMenu {
+  menuId: number,
+  formData: Partial<menu>
+}
+
+//메뉴 정보 수정
+export const useUpdateMenu = () => {
+  const { mutate: updateMenuMutate } = useMutation({
+    mutationFn: ({formData, menuId}: UpdateMenu) => updateMenu({formData, menuId}), 
+    onSuccess: () => {
+      localStorage.setItem("postSuccessMessage", "이 완료되었습니다.");
+    },
+    onError(error) {
+      console.log(error);
+    },
+  });
+  return {updateMenuMutate};
+};
+
 
 // 단건 메뉴 품절 처리
 

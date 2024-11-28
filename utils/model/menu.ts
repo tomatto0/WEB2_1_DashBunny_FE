@@ -7,10 +7,11 @@ export interface menu{
   menuId: number,
   menuImage : string,
   menuName: string,
-  menuGroupName: string,
+  groupId: number,
+  groupName: string,
   price: number,
   menuContent: string,
-  stockAvailable: boolean,
+  stockAvaliable: boolean,
   menuStock: number,
   isSoldOut: boolean
 }

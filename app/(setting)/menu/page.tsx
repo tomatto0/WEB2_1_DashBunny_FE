@@ -248,15 +248,16 @@ export default function menuSetting() {
                     />
                   )}
                 </div>
-
-                <div className={styles.menu_title}>
-                  <p>{menu?.menuName}</p>
-                  <p>{menu?.price}</p>
-                </div>
+                <Link href={`/menu/edit/${menu.menuId}`}>
+                  <div className={styles.menu_title}>
+                    <p>{menu?.menuName}</p>
+                    <p>{menu?.price}</p>
+                  </div>
+                </Link>
               </div>
 
               <div className={styles.menu_right}>
-                {menu.stockAvailable ? (
+                {menu.stockAvaliable ? (
                   <div className={styles.left_count}>{menu.menuStock}</div>
                 ) : (
                   ''

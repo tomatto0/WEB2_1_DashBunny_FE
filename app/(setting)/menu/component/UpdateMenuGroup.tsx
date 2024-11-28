@@ -80,6 +80,7 @@ export default function UpdateMenuGroupModal(props: ClickModalProps) {
   //폼데이터 제출
   const handleSubmit = () => {
     updateMenuGroupMutate({ groupId, formData });
+    console.log(formData);
     clickUpdateModal();
   };
 

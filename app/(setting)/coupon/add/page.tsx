@@ -1,10 +1,12 @@
 'use client';
 
 import styles from '@/styles/settings.module.scss';
+import { useRouter } from 'next/navigation';
 import { useState, useReducer, FormEvent, ChangeEvent } from 'react';
+import { useCouponGroup } from '../hook/useCoupon';
 
 export default function addCoupon() {
-  //현재 주소가 /posts로 시작하면 상단에 포스트로 표기
+  const router = useRouter();
 
   const [isPercentActive, setIsPercentActive] = useState(false);
 
@@ -69,11 +71,14 @@ export default function addCoupon() {
     });
   };
 
+  const { addCouponMutate } = useCouponGroup();
+
   //폼데이터 제출
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(formData);
+    addCouponMutate(formData);
+    router.push('/coupon');
   };
 
   return (

@@ -19,10 +19,15 @@ export const getAllMenu = async(): Promise<menuList> => {
   }
 }
 
+interface singleMenu {
+  menu: menu,
+  menuGroups: menuGroup[]
+}
+
 // 메뉴 1건 조회 - 수정시 사용
-export const getSingleMenu = async(menuId: number): Promise<menu> => {
+export const getSingleMenu = async(menuId: number): Promise<singleMenu> => {
   try{
-    const response = await api.get<menu>(`/store/update-menu/${menuId}`);
+    const response = await api.get<singleMenu>(`/store/update-menu/${menuId}`);
     return response.data
   } catch(error) {
     if (axios.isAxiosError(error)) {
@@ -62,20 +67,52 @@ export const getGroupMenuOnly = async(): Promise<menuGroup[]> => {
   }
 }
 
+//신규 메뉴 추가
+export const addMenu = async(formData: Partial<menu>) : Promise<void> => {
+  try{
+    const response = await api.post<void>(`/store/create-menu/${storeId}`, formData);
+    console.log('MenuId Array Data:', formData)
+    return response.data
+  }catch(error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError<ApiError>
+      throw new Error(axiosError.response?.data?.message || '신규 메뉴 추가 실패 ')
+    }
+    throw error
+}
+}
+
+interface UpdateMenu {
+  menuId: number,
+  formData: Partial<menu>
+}
+
+//메뉴 정보 수정
+export const updateMenu = async({menuId, formData}: UpdateMenu) : Promise<void> => {
+  const request = updateAxiosClient();
+  try{
+    const response = await request.patch<void>(`/store/update-menu/${menuId}`, formData);
+    console.log('MenuId Array Data:', formData)
+    return response.data
+  }catch(error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError<ApiError>
+      throw new Error(axiosError.response?.data?.message || '메뉴 정보 수정 실패 ')
+    }
+    throw error
+}
+}
+
 interface UpdateSingleSoldOutInput{
   menuId: number;
   isSoldOut: boolean;
 }
 
-interface sendBoolean{
-  isSoldOut: boolean;
-}
-
 //개별 품절 업데이트
-export const updateSingleSoldOut = async({menuId, isSoldOut}: UpdateSingleSoldOutInput) : Promise<sendBoolean> => {
+export const updateSingleSoldOut = async({menuId, isSoldOut}: UpdateSingleSoldOutInput) : Promise<Partial<UpdateSingleSoldOutInput>> => {
   const request = updateAxiosClient();
   try{
-    const response = await request.patch<sendBoolean>(`/store/update/menu-sold-out/${menuId}`, {
+    const response = await request.patch<Partial<UpdateSingleSoldOutInput>>(`/store/update/menu-sold-out/${menuId}`, {
       isSoldOut: isSoldOut
     });
     console.log('MenuId Array Data:', isSoldOut)

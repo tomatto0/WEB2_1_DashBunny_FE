@@ -2,9 +2,11 @@
 
 import styles from '@/styles/settings.module.scss';
 import { useState, useReducer, FormEvent, ChangeEvent } from 'react';
-import { useGetGroupMenuOnly } from '../hooks/useMenu';
+import { useAddMenu, useGetGroupMenuOnly } from '../hooks/useMenu';
+import { useRouter } from 'next/navigation';
 
 export default function addMenu() {
+  const router = useRouter();
   const { data, isError, isLoading } = useGetGroupMenuOnly();
   const groupMenus = data || [];
 
@@ -58,8 +60,8 @@ export default function addMenu() {
 
     dispatch({
       type: 'UPDATE_FIELD',
-      field: 'stockAvailable',
-      value: isChecked,
+      field: 'stockAvaliable',
+      value: !isChecked,
     });
   };
 
@@ -70,15 +72,18 @@ export default function addMenu() {
     dispatch({
       type: 'UPDATE_FIELD',
       field: 'isSoldOut',
-      value: isStoreChecked,
+      value: !isStoreChecked,
     });
   };
+
+  const { addMenuMutate } = useAddMenu();
 
   //폼데이터 제출
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(formData);
+    addMenuMutate(formData);
+    router.push('/menu');
   };
 
   if (isLoading) return <div>로딩 중...</div>;
