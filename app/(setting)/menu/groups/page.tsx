@@ -63,7 +63,20 @@ export default function groups() {
           <hr className={styles.margin_top} />
           {menuGroups?.map((group) => (
             <div className={styles.button_wrap} key={group.groupId}>
-              {group.groupName}
+              <div className={styles.menuGroup_title}>
+                {group.isMainGroup ? (
+                  <Image
+                    aria-hidden
+                    src="/icons/menu_primary.svg"
+                    alt="primary"
+                    width={17}
+                    height={17}
+                  />
+                ) : (
+                  ''
+                )}
+                {group.groupName}
+              </div>
               <div>
                 <button
                   className={styles.soldout_button}

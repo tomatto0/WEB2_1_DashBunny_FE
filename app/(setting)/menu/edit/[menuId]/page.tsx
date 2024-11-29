@@ -2,7 +2,11 @@
 
 import styles from '@/styles/settings.module.scss';
 import { useEffect, useState, useReducer, FormEvent, ChangeEvent } from 'react';
-import { useGetSingleMenu, useUpdateMenu } from '../../hooks/useMenu';
+import {
+  useDeleteMenu,
+  useGetSingleMenu,
+  useUpdateMenu,
+} from '../../hooks/useMenu';
 import { useRouter } from 'next/navigation';
 
 export default function addMenu({ menuId }: { menuId: number }) {
@@ -20,7 +24,7 @@ export default function addMenu({ menuId }: { menuId: number }) {
     groupId: 0,
     price: 0,
     menuContent: '',
-    stockAvaliable: false,
+    stockAvailable: false,
     menuStock: 0,
     isSoldOut: false,
   };
@@ -63,12 +67,12 @@ export default function addMenu({ menuId }: { menuId: number }) {
           groupId: menuInfo.groupId ?? 0,
           price: menuInfo.price ?? 0,
           menuContent: menuInfo.menuContent ?? '',
-          stockAvaliable: menuInfo.stockAvaliable ?? false,
+          stockAvailable: menuInfo.stockAvailable ?? false,
           menuStock: menuInfo.menuStock ?? 0,
           isSoldOut: menuInfo.isSoldOut ?? false,
         },
       });
-      if (menuInfo.stockAvaliable === true) {
+      if (menuInfo.stockAvailable === true) {
         setIsChecked(true);
       }
       if (menuInfo.isSoldOut === true) {
@@ -109,6 +113,20 @@ export default function addMenu({ menuId }: { menuId: number }) {
     });
   };
 
+  //메뉴 삭제 handle
+
+  const { deleteMenuMutate } = useDeleteMenu();
+
+  const handleDeleteMenu = () => {
+    try {
+      deleteMenuMutate(menuId);
+      router.push('/menu');
+    } catch (error) {
+      console.error('Error updating:', error);
+      alert('메뉴 수정 실패');
+    }
+  };
+
   const { updateMenuMutate } = useUpdateMenu();
 
   //폼데이터 제출
@@ -132,10 +150,12 @@ export default function addMenu({ menuId }: { menuId: number }) {
       <div className={styles.contents_wrap}>
         <form className="" action="" onSubmit={handleSubmit}>
           <div className={styles.page_title}>
-            메뉴 등록{' '}
-            <button className={styles.submit_button} type="submit">
-              저장
-            </button>
+            메뉴 수정{' '}
+            <div className={styles.edit_menu_button_wrap}>
+              <button className={styles.submit_button} type="submit">
+                저장
+              </button>
+            </div>
           </div>
 
           <div className={styles.formtitle}>
@@ -157,7 +177,7 @@ export default function addMenu({ menuId }: { menuId: number }) {
               onChange={handleInputChange}
               name="menuGroupId"
               disabled={!groupMenus.length}
-              value={menuInfo?.groupId}
+              value={menuInfo?.groupId || ''}
             >
               <option value="">
                 {isLoading
@@ -231,6 +251,13 @@ export default function addMenu({ menuId }: { menuId: number }) {
             </label>
           </div>
         </form>
+        <button
+          className={styles.delete_single_menu_button}
+          type="button"
+          onClick={handleDeleteMenu}
+        >
+          메뉴삭제
+        </button>
       </div>
     </>
   );

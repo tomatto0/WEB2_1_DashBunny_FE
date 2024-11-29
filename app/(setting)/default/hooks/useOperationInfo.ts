@@ -14,11 +14,13 @@ export const useGetOperationInfo = () => {
   })
 }
 
+
+
 export const useUpdateOperationInfo = () => {
   const queryClient = useQueryClient();
   const { mutate: updateOperationInfoMutate } = useMutation({
     
-    mutationFn: updateOperationInfo,
+    mutationFn: (formData: Partial<operationInfo>)=> updateOperationInfo(formData),
     onSuccess: () => {
       localStorage.setItem("postSuccessMessage", "이 완료되었습니다.");
       queryClient.invalidateQueries({ queryKey: ['OperationInfo'] });

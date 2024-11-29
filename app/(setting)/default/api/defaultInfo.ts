@@ -1,5 +1,5 @@
 import axios, {AxiosError} from "axios";
-import { api, updateAxiosClient } from "@/utils/axios/axiosInstance";
+import { api } from "@/utils/axios/axiosInstance";
 import { ApiError } from "next/dist/server/api-utils";
 import { basicInfo } from "@/utils/model/store";
 
@@ -30,9 +30,8 @@ interface updateInfoData {
 
 //가게 기본 정보 업데이트
 export const updateBasicInfo = async(formData: updateInfoData) : Promise<updateInfoData> => {
-  const request = updateAxiosClient();
   try{
-    const response = await request.patch<updateInfoData>(`/store/basic-info/${storeId}`, formData);
+    const response = await api.patch<updateInfoData>(`/store/basic-info/${storeId}`, formData);
     console.log('formData:', formData)
     return response.data
   }catch(error) {

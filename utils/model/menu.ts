@@ -7,13 +7,17 @@ export interface menu{
   menuId: number,
   menuImage : string,
   menuName: string,
-  groupId: number,
-  groupName: string,
+  groupId: number | null,
+  groupName: string | null,
   price: number,
   menuContent: string,
-  stockAvaliable: boolean,
+  stockAvailable: boolean,
   menuStock: number,
   isSoldOut: boolean
+}
+
+export interface menuListResponse{
+  menus: menu[],
 }
 
 export interface menuGroup{

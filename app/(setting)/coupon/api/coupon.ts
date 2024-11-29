@@ -8,7 +8,6 @@ const storeId = 'user_1';
 //쿠폰 리스트 가져오기
 
 export const getCouponList = async(): Promise<coupon[]> => {
-  console.log("getCouponList");
   try{
     const response = await api.get<coupon[]>(`/store/coupon/${storeId}`);
     return response.data
@@ -26,7 +25,6 @@ export const getCouponList = async(): Promise<coupon[]> => {
 export const addCoupon = async(formData: Partial<coupon>) : Promise<void> => {
   try{
     const response = await api.post<void>(`/store/coupon/${storeId}`, formData);
-    console.log('Add coupon Data:', formData)
     return response.data
   }catch(error) {
     if (axios.isAxiosError(error)) {

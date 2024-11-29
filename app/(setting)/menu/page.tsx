@@ -14,39 +14,49 @@ import {
 import { menu, menuGroup } from '@/utils/model/menu';
 
 export default function menuSetting() {
-  const { data, isError, isLoading } = useGetAllMenu();
+  const {
+    data: allMenuData,
+    isError: isAllMenuError,
+    isLoading: isAllMenuLoading,
+  } = useGetAllMenu();
 
   //menu array를 setState를 통해서 관리
-  const menuArray = useMemo(() => data?.menus || [], [data?.menus]);
+  const menuArray = useMemo(
+    () => allMenuData?.menus || [],
+    [allMenuData?.menus],
+  );
   const menuGroupArray = useMemo(
-    () => data?.menuGroups || [],
-    [data?.menuGroups],
+    () => allMenuData?.menuGroups || [],
+    [allMenuData?.menuGroups],
   );
   const [menuArrayState, setMenuArrayState] = useState(menuArray);
   const [activeGroupId, setActiveGroupId] = useState<number | null>(null); // 활성화된 그룹 ID
 
+  const {
+    data: groupMenus,
+    isError: isGroupMenuError,
+    isLoading: isGroupMenuLoading,
+  } = useGetGroupMenus(
+    activeGroupId,
+    !!activeGroupId, // activeGroupId가 유효할 때만 실행
+  );
+
+  // 초기 로딩 또는 그룹 변경 시 메뉴 업데이트
   useEffect(() => {
-    if (menuArray.length > 0) {
+    if (activeGroupId === null) {
+      // 전체 메뉴
       setMenuArrayState(menuArray);
-      dispatch({ type: 'RESET_CHECKED' });
-      console.log('menuArray: 랜더링');
+    } else if (groupMenus) {
+      // 특정 그룹의 메뉴
+      const groupMenuList = groupMenus.menus;
+      setMenuArrayState(groupMenuList);
     }
-  }, [menuArray]);
+  }, [activeGroupId, menuArray, groupMenus]);
 
   //그룹리스트 불러오기
-  const handleGroupList = (groupId: number) => {
-    const { data, isError, error, isLoading } = useGetGroupMenus(groupId);
-
-    if (isError) {
-      console.error('Error fetching group menus:', error); // 에러 로그 출력
-      alert('그룹 메뉴를 가져오는 중 오류가 발생했습니다.'); // 사용자에게 알림
-      return;
-    }
-
-    if (!isLoading && data) {
-      setMenuArrayState(data); // 데이터를 상태에 저장
-      setActiveGroupId(groupId); // 활성화된 그룹 ID 업데이트
-    }
+  const handleGroupList = (menuGroup: menuGroup) => {
+    const groupId = menuGroup.groupId;
+    setActiveGroupId(groupId); // 활성화된 그룹 ID 업데이트
   };
 
   const { updateSingleSoldOutMutate } = useSingleSoldOut();
@@ -138,8 +148,8 @@ export default function menuSetting() {
     updateMultifleDeleteMutate(selectedIds);
   };
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (isError) return <div>에러 발생</div>;
+  if (isAllMenuLoading || isGroupMenuLoading) return <div>로딩 중...</div>;
+  if (isAllMenuError || isGroupMenuError) return <div>에러 발생</div>;
 
   return (
     <>
@@ -174,7 +184,7 @@ export default function menuSetting() {
               className={`${styles.group} ${
                 activeGroupId === menuGroup.groupId ? styles.active : ''
               }`}
-              onClick={() => handleGroupList(menuGroup.groupId)}
+              onClick={() => handleGroupList(menuGroup)}
             >
               {menuGroup.groupName}
             </div>
@@ -237,6 +247,7 @@ export default function menuSetting() {
                       alt="menuImage"
                       width={72}
                       height={72}
+                      priority={true}
                     />
                   ) : (
                     <Image
@@ -257,7 +268,7 @@ export default function menuSetting() {
               </div>
 
               <div className={styles.menu_right}>
-                {menu.stockAvaliable ? (
+                {menu.stockAvailable ? (
                   <div className={styles.left_count}>{menu.menuStock}</div>
                 ) : (
                   ''

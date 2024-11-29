@@ -252,3 +252,14 @@
     }
   }
 }
+
+.menuGroup_title {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  img {
+    width: 17px;
+    height: 17px;
+  }
+}

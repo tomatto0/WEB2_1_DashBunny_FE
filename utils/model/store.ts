@@ -30,3 +30,8 @@ export interface operationInfo{
   pauseStartTime: string
   pauseEndTime: string
 }
+
+export interface pauseTimeInfo {
+  pauseStartTime: string
+  pauseEndTime: string
+}

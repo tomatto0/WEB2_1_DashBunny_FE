@@ -1,11 +1,11 @@
 import axios, {AxiosError} from "axios";
-import { api, updateAxiosClient } from "@/utils/axios/axiosInstance";
+import { api } from "@/utils/axios/axiosInstance";
 import { ApiError } from "next/dist/server/api-utils";
-import { operationInfo } from "@/utils/model/store";
+import { operationInfo, pauseTimeInfo } from "@/utils/model/store";
 
 const storeId = 1;
 
-//가게 기본 정보 조회
+//가게 운영 정보 조회
 export const getOperationInfo = async(): Promise<operationInfo> => {
   try{
     const response = await api.get<operationInfo>(`/store/operation-info/${storeId}`);
@@ -20,18 +20,10 @@ export const getOperationInfo = async(): Promise<operationInfo> => {
   }
 }
 
-interface updateOperationInfoData {
-    openingHours: string;
-    breakTime: string;
-    holidayDays: string;
-    holidayNotice: string;
-}
-
-//가게 기본 정보 업데이트
-export const updateOperationInfo = async(formData: updateOperationInfoData) : Promise<updateOperationInfoData> => {
-  const request = updateAxiosClient();
+//가게 운영 정보 업데이트
+export const updateOperationInfo = async(formData: Partial<operationInfo>) : Promise<void> => {
   try{
-    const response = await request.patch<updateOperationInfoData>(`/store/operation-info/${storeId}`, formData);
+    const response = await api.post<void>(`/store/operation-info/${storeId}`, formData);
     console.log('formData:', formData)
     return response.data
   }catch(error) {
@@ -43,17 +35,10 @@ export const updateOperationInfo = async(formData: updateOperationInfoData) : Pr
 }
 }
 
-
-interface updatePauseData {
-  pauseStartTime: string;
-  pauseEndTime: string;
-}
-
-//가게 일시중지 설정
-export const updatePauseInfo = async(formData: updatePauseData) : Promise<updatePauseData> => {
-const request = updateAxiosClient();
+//가게 영업 일시중지 설정
+export const updatePauseInfo = async(formData: pauseTimeInfo) : Promise<pauseTimeInfo> => {
 try{
-  const response = await request.patch<updatePauseData>(`/store/operation-pause/${storeId}`, formData);
+  const response = await api.patch<pauseTimeInfo>(`/store/operation-pause/${storeId}`, formData);
   console.log('formData:', formData)
   return response.data
 }catch(error) {
@@ -65,7 +50,7 @@ try{
 }
 }
 
-//가게 일시중지 중지 설정
+//가게 영업 일시중지 해제 설정
 export const endPauseInfo = async() : Promise<void> => {
   
   try{

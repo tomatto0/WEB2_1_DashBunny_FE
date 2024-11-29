@@ -6,9 +6,9 @@ import { updateGroupData } from "@/utils/model/menu";
 const storeId = 'user_1';
 
 //신규 메뉴 그룹 생성
-export const addMenuGroup = async(formData: updateGroupData) : Promise<updateGroupData> => {
+export const addMenuGroup = async(formData: updateGroupData) : Promise<void> => {
   try{
-    const response = await api.post<updateGroupData>(`/store/group/${storeId}`, formData);
+    const response = await api.post(`/store/group/${storeId}`, formData);
     console.log('Add MenuGroup Data:', formData)
     return response.data
   }catch(error) {
@@ -28,7 +28,7 @@ formData: updateGroupData;
 //메뉴 그룹 업데이트
 export const updateMenuGroup = async({groupId, formData}: UpdateMenuGroupInput) : Promise<void> => {
   try{
-    const response = await api.post(`/store/group/${groupId}`, formData);
+    const response = await api.patch(`/store/group/${groupId}`, formData);
     console.log('Add MenuGroup Data:', formData)
     return response.data
   }catch(error) {

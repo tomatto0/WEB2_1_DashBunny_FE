@@ -1,5 +1,5 @@
 import axios, {AxiosError} from "axios";
-import { api, updateAxiosClient } from "@/utils/axios/axiosInstance";
+import { api} from "@/utils/axios/axiosInstance";
 import { ApiError } from "next/dist/server/api-utils";
 import { orderInfo } from "@/utils/model/store";
 
@@ -23,9 +23,8 @@ export const getOrderInfo = async(): Promise<orderInfo> => {
 
 //가게 주문 정보 업데이트
 export const updateOrderInfo = async(formData: orderInfo) : Promise<orderInfo> => {
-  const request = updateAxiosClient();
   try{
-    const response = await request.put<orderInfo>(`/store/order-info/${storeId}`, formData);
+    const response = await api.put<orderInfo>(`/store/order-info/${storeId}`, formData);
     console.log('formData:', formData)
     return response.data
   }catch(error) {

@@ -1,10 +1,12 @@
 import axios, {AxiosError} from "axios";
 import { api, updateAxiosClient } from "@/utils/axios/axiosInstance";
 import { ApiError } from "next/dist/server/api-utils";
-import { menuList, menuGroup, menu } from "@/utils/model/menu";
+import { menuList, menuGroup, menu, menuListResponse } from "@/utils/model/menu";
 
 const storeId = 'user_1';
 
+
+// 메뉴 리스트 조회 API
 // 전체 메뉴 조회
 export const getAllMenu = async(): Promise<menuList> => {
   try{
@@ -18,6 +20,41 @@ export const getAllMenu = async(): Promise<menuList> => {
     throw error
   }
 }
+
+// 특정 메뉴 그룹에 해당하는 메뉴 리스트만 조회할때 사용
+export const getGroupMenus = async(groupId: number): Promise<menuListResponse> => {
+  try{
+    const response = await api.get<menuListResponse>(`/store/read/group-menu/${groupId}`);
+    return response.data
+  } catch(error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError<ApiError>
+      throw new Error(axiosError.response?.data?.message || '메뉴 그룹 기반 메뉴 정보 조회 실패 ')
+    }
+    throw error
+  }
+}
+
+
+
+
+// 메뉴 그룹 리스트 조회
+export const getGroupMenuOnly = async(): Promise<menuGroup[]> => {
+  console.log("getGroupMenuOnly");
+  try{
+    const response = await api.get<menuGroup[]>(`/store/create/menu/${storeId}`);
+    return response.data
+  } catch(error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError<ApiError>
+      throw new Error(axiosError.response?.data?.message || '메뉴 그룹 정보 조회 실패 ')
+    }
+    throw error
+  }
+}
+
+
+// 메뉴 1건 조회/추가/수정/삭제 API
 
 interface singleMenu {
   menu: menu,
@@ -38,40 +75,12 @@ export const getSingleMenu = async(menuId: number): Promise<singleMenu> => {
   }
 }
 
-// 특정 메뉴 그룹에 해당하는 메뉴 리스트만 조회할때 사용
-export const getGroupMenus = async(groupId: number): Promise<menuList['menus']> => {
-  try{
-    const response = await api.get<menuList['menus']>(`/store/read/menu/${groupId}`);
-    return response.data
-  } catch(error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError<ApiError>
-      throw new Error(axiosError.response?.data?.message || '메뉴 그룹 기반 메뉴 정보 조회 실패 ')
-    }
-    throw error
-  }
-}
 
-// 메뉴 그룹 리스트 조회
-export const getGroupMenuOnly = async(): Promise<menuGroup[]> => {
-  console.log("getGroupMenuOnly");
-  try{
-    const response = await api.get<menuGroup[]>(`/store/create/menu/${storeId}`);
-    return response.data
-  } catch(error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError<ApiError>
-      throw new Error(axiosError.response?.data?.message || '메뉴 그룹 정보 조회 실패 ')
-    }
-    throw error
-  }
-}
-
-//신규 메뉴 추가
+//신규 메뉴 등록
 export const addMenu = async(formData: Partial<menu>) : Promise<void> => {
   try{
-    const response = await api.post<void>(`/store/create-menu/${storeId}`, formData);
-    console.log('MenuId Array Data:', formData)
+    const response = await api.post(`/store/create-menu/${storeId}`, formData);
+
     return response.data
   }catch(error) {
     if (axios.isAxiosError(error)) {
@@ -82,17 +91,32 @@ export const addMenu = async(formData: Partial<menu>) : Promise<void> => {
 }
 }
 
+// 메뉴 1건 삭제
+export const deleteMenu = async(menuId: number) : Promise<void> => {
+  try{
+    const response = await api.delete(`/store/menu-delete/${menuId}`);
+
+    return response.data
+  }catch(error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError<ApiError>
+      throw new Error(axiosError.response?.data?.message || '메뉴 1건 삭제 실패 ')
+    }
+    throw error
+}
+}
+
+//메뉴 정보 수정
+
 interface UpdateMenu {
   menuId: number,
   formData: Partial<menu>
 }
 
-//메뉴 정보 수정
 export const updateMenu = async({menuId, formData}: UpdateMenu) : Promise<void> => {
-  const request = updateAxiosClient();
   try{
-    const response = await request.patch<void>(`/store/update-menu/${menuId}`, formData);
-    console.log('MenuId Array Data:', formData)
+    const response = await api.patch(`/store/update-menu/${menuId}`, formData);
+
     return response.data
   }catch(error) {
     if (axios.isAxiosError(error)) {
@@ -103,19 +127,21 @@ export const updateMenu = async({menuId, formData}: UpdateMenu) : Promise<void> 
 }
 }
 
+
+//개별 품절 업데이트
+
 interface UpdateSingleSoldOutInput{
   menuId: number;
   isSoldOut: boolean;
 }
 
-//개별 품절 업데이트
 export const updateSingleSoldOut = async({menuId, isSoldOut}: UpdateSingleSoldOutInput) : Promise<Partial<UpdateSingleSoldOutInput>> => {
   const request = updateAxiosClient();
   try{
     const response = await request.patch<Partial<UpdateSingleSoldOutInput>>(`/store/update/menu-sold-out/${menuId}`, {
       isSoldOut: isSoldOut
     });
-    console.log('MenuId Array Data:', isSoldOut)
+
     return response.data
   }catch(error) {
     if (axios.isAxiosError(error)) {
@@ -126,12 +152,13 @@ export const updateSingleSoldOut = async({menuId, isSoldOut}: UpdateSingleSoldOu
 }
 }
 
+//다중 품절 업데이트
+
 interface sendMenuIds{
   menuIds: number[];
   action: string;
 }
 
-//다중 품절 업데이트
 export const updateMultifleSoldOut = async(selectedIds: number[]) : Promise<sendMenuIds> => {
   const request = updateAxiosClient();
   try{
@@ -139,7 +166,7 @@ export const updateMultifleSoldOut = async(selectedIds: number[]) : Promise<send
       menuIds: selectedIds,
       action: 'Soldout'
     });
-    console.log('MenuId Array Data:', selectedIds)
+
     return response.data
   }catch(error) {
     if (axios.isAxiosError(error)) {
@@ -158,7 +185,7 @@ export const updateMultifleDelete = async(selectedIds: number[]) : Promise<sendM
       menuIds: selectedIds,
       action: 'delete'
     });
-    console.log('MenuId Array Data:', selectedIds)
+
     return response.data
   }catch(error) {
     if (axios.isAxiosError(error)) {
