@@ -134,7 +134,12 @@ export default function menuSetting() {
       .filter((id) => checkedState[Number(id)])
       .map(Number);
 
-    updateMultifleSoldOutMutate(selectedIds);
+    const confirmation = window.confirm(
+      `체크한 메뉴들을 일괄 품절 처리하시겠습니까?`,
+    );
+    if (confirmation) {
+      updateMultifleSoldOutMutate(selectedIds);
+    }
   };
 
   // 체크된 다중 핸들 삭제 api처리
@@ -145,7 +150,12 @@ export default function menuSetting() {
       .filter((id) => checkedState[Number(id)])
       .map(Number);
 
-    updateMultifleDeleteMutate(selectedIds);
+    const confirmation = window.confirm(
+      `체크한 메뉴들을 일괄 삭제하시겠습니까?`,
+    );
+    if (confirmation) {
+      updateMultifleDeleteMutate(selectedIds);
+    }
   };
 
   if (isAllMenuLoading || isGroupMenuLoading) return <div>로딩 중...</div>;

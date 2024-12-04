@@ -3,6 +3,7 @@
 import styles from '@/styles/settings.module.scss';
 import Counter from '../component/Counter';
 import { useState } from 'react';
+import KakaoMap from '../component/KakaoMap';
 
 export default function Delivery() {
   const [fullTime, setFullTime] = useState(50);
@@ -23,12 +24,12 @@ export default function Delivery() {
           <div className={styles.formtitle}>
             배달 지역 설정
             <div className={styles.button_form}>
-              실제로 관리자쪽에 넘어갈 데이터가 문자로 표시되어야함
+              실제 배달될 영역을 수정할 수 있습니다.
               <button className={styles.modal_open_button} type="button">
                 설정하기
               </button>
             </div>
-            <div className={styles.map}>map</div>
+            <KakaoMap latitude={33.5563} longitude={126.79581} />
           </div>
 
           <div className={styles.formtitle}>
@@ -47,7 +48,7 @@ export default function Delivery() {
             <Counter number={fullTime} onStateChange={setFullTime} />
           </div>
 
-          <div className={styles.count_form}>
+          <div className={styles.count_form_bottom}>
             조리시간
             <Counter number={shortTime} onStateChange={setShortTime} />
           </div>

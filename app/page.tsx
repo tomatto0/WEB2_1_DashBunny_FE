@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import styles from './page.module.scss';
 import OrderList from './components/OrderList';
+import NewOrderModal from './components/NewOrder';
 export default function Home() {
   return (
     <div className={styles.background}>
@@ -80,6 +81,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <NewOrderModal />
     </div>
   );
 }

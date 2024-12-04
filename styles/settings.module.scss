@@ -105,9 +105,6 @@
   }
 
   .map {
-    width: 100%;
-    background-color: variables.$gray-200;
-    height: 200px;
     margin-top: 8px;
     margin-bottom: 44px;
   }
@@ -312,7 +309,14 @@
   margin-bottom: 44px;
 }
 
+.count_form_bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .setting_count {
+  justify-content: space-between;
   display: inline-flex;
   align-items: center;
   gap: 19px;

@@ -9,8 +9,13 @@ import {
 } from '../../hooks/useMenu';
 import { useRouter } from 'next/navigation';
 
-export default function addMenu({ menuId }: { menuId: number }) {
+interface Params {
+  menuId: string;
+}
+
+export default function AddMenu({ params }: { params: Params }) {
   const router = useRouter();
+  const menuId = parseInt(params.menuId, 10);
   const { data, isError, isLoading } = useGetSingleMenu(menuId);
 
   const menuInfo = data?.menu;

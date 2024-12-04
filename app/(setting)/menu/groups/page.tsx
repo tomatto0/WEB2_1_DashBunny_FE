@@ -35,8 +35,13 @@ export default function groups() {
   };
 
   const handleDeleteGroup = (group: menuGroup) => {
-    const menugroupId = group.groupId;
-    useDeleteMenuGroupMutate(menugroupId);
+    const confirmation = window.confirm(
+      `메뉴그룹 '${group.groupName}'을(를) 삭제하시겠습니까?`,
+    );
+    if (confirmation) {
+      const menugroupId = group.groupId;
+      useDeleteMenuGroupMutate(menugroupId);
+    }
   };
 
   if (isLoading) return <div>로딩 중...</div>;
