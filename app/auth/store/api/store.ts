@@ -1,5 +1,5 @@
 import axios, {AxiosError} from "axios";
-import { updateAxiosClient } from "@/utils/axios/axiosInstance";
+import { updateStoreAxiosClient } from "@/utils/axios/axiosInstance";
 import { ApiError } from "next/dist/server/api-utils";
 import { storeRegist } from "@/utils/model/register";
 
@@ -7,7 +7,7 @@ import { storeRegist } from "@/utils/model/register";
 
 //가게 등록
 export const registStore = async(formData: storeRegist) : Promise<void> => {
-  const request = updateAxiosClient();
+  const request = updateStoreAxiosClient();
   try{
     const response = await request.post(`/store/create`, formData);
     console.log('formData:', formData)

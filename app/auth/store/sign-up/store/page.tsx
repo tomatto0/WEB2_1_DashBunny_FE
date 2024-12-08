@@ -94,7 +94,6 @@ export default function SignUpNav() {
   const { registStoreMutate } = useRegistStore();
 
   const handleSubmit = () => {
-    // 필수 필드 목록
     const requiredFields = {
       storeName: formData.storeName,
       address: formData.address,

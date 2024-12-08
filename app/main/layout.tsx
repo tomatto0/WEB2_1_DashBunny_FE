@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import HorizontalNav from '../components/horizontalNav';
 
 export const metadata: Metadata = {
-  title: 'DashBunny - 가게등록',
-  description: '판매되는 메뉴와 메뉴그룹을 설정할 수 있습니다',
+  title: 'DashBunny - 메인화면',
+  description: '현재 배달현황 확인 및 주문관리를 할 수 있습니다.',
 };
 
 export default function RootLayout({

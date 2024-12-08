@@ -1,0 +1,11 @@
+@use '../../../../styles/style.scss';
+
+.color {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('/img/login_background_img.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
