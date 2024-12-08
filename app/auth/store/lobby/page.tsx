@@ -8,6 +8,6 @@ export default function Lobby() {
   console.log(data);
   if (isLoading) return <div>loading...</div>;
   if (isLoading) return <div>loading...</div>;
-  if (!data) return <div>데이터가 없습니다</div>;
+  if (!data) return <div>데이터가 없음</div>;
   return <>lobby</>;
 }
