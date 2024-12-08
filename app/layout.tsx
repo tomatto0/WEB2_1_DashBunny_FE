@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
-import HorizontalNav from './components/horizontalNav';
 import ReactQueryConfigContext from '@/provider/ReactQueryConfigContext';
 
 const pretendard = localFont({
@@ -27,7 +26,6 @@ export default function RootLayout({
   return (
     <html lang="kr" className={`${pretendard.variable}`}>
       <body className={`${pretendard.variable} antialiased`}>
-        <HorizontalNav />
         <ReactQueryConfigContext>{children}</ReactQueryConfigContext>
       </body>
     </html>

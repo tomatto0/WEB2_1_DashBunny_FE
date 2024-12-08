@@ -1,5 +1,5 @@
 import axios, {AxiosError} from "axios";
-import { api, updateAxiosClient } from "@/utils/axios/axiosInstance";
+import { api} from "@/utils/axios/axiosInstance";
 import { ApiError } from "next/dist/server/api-utils";
 import { menuList, menuGroup, menu, menuListResponse } from "@/utils/model/menu";
 
@@ -136,9 +136,9 @@ interface UpdateSingleSoldOutInput{
 }
 
 export const updateSingleSoldOut = async({menuId, isSoldOut}: UpdateSingleSoldOutInput) : Promise<Partial<UpdateSingleSoldOutInput>> => {
-  const request = updateAxiosClient();
+
   try{
-    const response = await request.patch<Partial<UpdateSingleSoldOutInput>>(`/store/update/menu-sold-out/${menuId}`, {
+    const response = await api.patch<Partial<UpdateSingleSoldOutInput>>(`/store/update/menu-sold-out/${menuId}`, {
       isSoldOut: isSoldOut
     });
 
@@ -160,9 +160,9 @@ interface sendMenuIds{
 }
 
 export const updateMultifleSoldOut = async(selectedIds: number[]) : Promise<sendMenuIds> => {
-  const request = updateAxiosClient();
+
   try{
-    const response = await request.patch<sendMenuIds>(`/store/read/menu/action`, {
+    const response = await api.patch<sendMenuIds>(`/store/read/menu/action`, {
       menuIds: selectedIds,
       action: 'Soldout'
     });
@@ -179,9 +179,9 @@ export const updateMultifleSoldOut = async(selectedIds: number[]) : Promise<send
 
 //다중 삭제 업데이트
 export const updateMultifleDelete = async(selectedIds: number[]) : Promise<sendMenuIds> => {
-  const request = updateAxiosClient();
+
   try{
-    const response = await request.patch<sendMenuIds>(`/store/read/menu/action`, {
+    const response = await api.patch<sendMenuIds>(`/store/read/menu/action`, {
       menuIds: selectedIds,
       action: 'delete'
     });
