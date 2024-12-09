@@ -5,7 +5,6 @@ import { coupon } from "@/utils/model/coupon";
 //쿠폰 리스트 가져오기
 
 export const useGetCouponList = () => {
-  console.log("useGetGroupMenus groupId")
   return useQuery<coupon[]>({
     queryKey: ["Coupon"],
     queryFn: () => getCouponList(),

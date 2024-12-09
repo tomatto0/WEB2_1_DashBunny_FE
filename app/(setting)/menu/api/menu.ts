@@ -10,7 +10,7 @@ export const getAllMenu = async(): Promise<menuList> => {
   const storeId = localStorage.getItem("storeId");
   try{
     const response = await api.get<menuList>(`/store/read/menu/${storeId}`);
-    console.log('전체메뉴조회',response);
+    console.log('전체메뉴조회', response);
     return response.data
   } catch(error) {
     if (axios.isAxiosError(error)) {
@@ -64,8 +64,9 @@ interface singleMenu {
 
 // 메뉴 1건 조회 - 수정시 사용
 export const getSingleMenu = async(menuId: number): Promise<singleMenu> => {
+  const storeId = localStorage.getItem("storeId");
   try{
-    const response = await api.get<singleMenu>(`/store/update-menu/${menuId}`);
+    const response = await api.get<singleMenu>(`/store/update-menu/${storeId}/${menuId}`);
     return response.data
   } catch(error) {
     if (axios.isAxiosError(error)) {
@@ -95,11 +96,11 @@ export const addMenu = async(formData: Partial<menu>) : Promise<void> => {
 
 // 메뉴 1건 삭제
 export const deleteMenu = async(menuId: number) : Promise<void> => {
-  
+  const storeId = localStorage.getItem("storeId");
   try{
-    const response = await api.delete(`/store/menu-delete/${menuId}`);
-
+    const response = await api.delete(`/store/menu-delete/${storeId}/${menuId}`);
     return response.data
+    
   }catch(error) {
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError<ApiError>
@@ -139,9 +140,9 @@ interface UpdateSingleSoldOutInput{
 }
 
 export const updateSingleSoldOut = async({menuId, isSoldOut}: UpdateSingleSoldOutInput) : Promise<Partial<UpdateSingleSoldOutInput>> => {
-
+  const storeId = localStorage.getItem("storeId");
   try{
-    const response = await api.patch<Partial<UpdateSingleSoldOutInput>>(`/store/update/menu-sold-out/${menuId}`, {
+    const response = await api.patch<Partial<UpdateSingleSoldOutInput>>(`/store/update/menu-sold-out/${storeId}/${menuId}`, {
       isSoldOut: isSoldOut
     });
 
@@ -156,16 +157,15 @@ export const updateSingleSoldOut = async({menuId, isSoldOut}: UpdateSingleSoldOu
 }
 
 //다중 품절 업데이트
-
 interface sendMenuIds{
   menuIds: number[];
   action: string;
 }
 
 export const updateMultifleSoldOut = async(selectedIds: number[]) : Promise<sendMenuIds> => {
-
+  const storeId = localStorage.getItem("storeId");
   try{
-    const response = await api.patch<sendMenuIds>(`/store/read/menu/action`, {
+    const response = await api.patch<sendMenuIds>(`/menu/action/${storeId}`, {
       menuIds: selectedIds,
       action: 'Soldout'
     });
@@ -182,9 +182,9 @@ export const updateMultifleSoldOut = async(selectedIds: number[]) : Promise<send
 
 //다중 삭제 업데이트
 export const updateMultifleDelete = async(selectedIds: number[]) : Promise<sendMenuIds> => {
-
+  const storeId = localStorage.getItem("storeId");
   try{
-    const response = await api.patch<sendMenuIds>(`/store/read/menu/action`, {
+    const response = await api.patch<sendMenuIds>(`/menu/action/${storeId}`, {
       menuIds: selectedIds,
       action: 'delete'
     });

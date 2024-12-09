@@ -3,13 +3,7 @@
 import styles from '@/styles/settings.module.scss';
 import Image from 'next/image';
 import { useGetStoreBasicInfo } from './hooks/useStoreInfo';
-import React, {
-  FormEvent,
-  ChangeEvent,
-  useReducer,
-  useEffect,
-  useState,
-} from 'react';
+import React, { FormEvent, ChangeEvent, useReducer, useEffect } from 'react';
 import useUpdateStoreBasicInfo from './hooks/useStoreInfo';
 
 export default function BasicInfo() {
@@ -69,26 +63,6 @@ export default function BasicInfo() {
   ) => {
     const { name, value } = e.target;
     dispatch({ type: 'UPDATE_FIELD', field: name, value });
-  };
-
-  //로고 이미지 파일 업로드
-
-  const [logoImgFile, setLogoImgFile] = useState<File | null>(null);
-
-  const updateLogoImgHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0] || null;
-    setLogoImgFile(selectedFile);
-    Mutation(logoImgFile);
-  };
-
-  //로고 이미지 파일 업로드
-
-  const [bannerImgFile, setBannerImgFile] = useState<File | null>(null);
-
-  const updateBannerImgHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0] || null;
-    setBannerImgFile(selectedFile);
-    Mutation(bannerImgFile);
   };
 
   const { mutate } = useUpdateStoreBasicInfo();
@@ -189,10 +163,7 @@ export default function BasicInfo() {
               </div>
               <div className={styles.add_image_block}>
                 배너 이미지
-                <div
-                  className={styles.add_image}
-                  onClick={updateLogoImgHandler}
-                >
+                <div className={styles.add_image}>
                   {data?.storeLogo ? (
                     <Image
                       aria-hidden

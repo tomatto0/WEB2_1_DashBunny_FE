@@ -1,6 +1,6 @@
 'use client';
 
-import { useStoreSignIn } from './hook/useUserStoreInfo';
+import { useStoreSignIn, useUserStoreInfo } from './hook/useUserStoreInfo';
 import { Store } from '@/utils/model/user';
 import styles from './lobby.module.scss';
 import Image from 'next/image';
@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 
 export default function Lobby() {
   const router = useRouter();
-  // const { data: userData, isLoading: isUserLoading } = useUserStoreInfo();
+  const { data: userData, isLoading: isUserLoading } = useUserStoreInfo();
   const { data: storeListData, isLoading: isStoreLoading } = useStoreSignIn();
 
   const topThreeStores = (storeListData as Store[] | undefined)?.slice(0, 3); // 첫 3개 데이터 추출
@@ -21,9 +21,9 @@ export default function Lobby() {
   };
 
   // console.log(data);
+  if (isUserLoading) return <div>loading...</div>;
   if (isStoreLoading) return <div>loading...</div>;
-  if (isStoreLoading) return <div>loading...</div>;
-  // if (!userData) return <div>유저 데이터가 없음</div>;
+  if (!userData) return <div>유저 데이터가 없음</div>;
   if (!storeListData) return <div>가게 데이터가 없음</div>;
   return (
     <>
