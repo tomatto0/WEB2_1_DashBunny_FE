@@ -6,3 +6,9 @@ export interface User {
   email: string
   profileImageUrl: string
 }
+
+export interface Store{
+  storeId: string
+  storeName: string
+  storeStatus: string
+}

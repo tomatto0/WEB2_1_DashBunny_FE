@@ -1,12 +1,12 @@
 export interface basicInfo {
   storeName: string
-  storePhone: string
+  contactNumber: string
   storeStatus: string
-  storeAddress: string
+  address: string
   storeLogo: string
   bannerImage: string
   storeDescription: string
-  ShortsUrl: string
+  shortsInfo: string
 }
 
 export interface orderInfo{

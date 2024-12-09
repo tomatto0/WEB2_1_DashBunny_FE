@@ -1,5 +1,5 @@
 export interface coupon {
-  ownerCouponId: number,
+  couponId: number,
   couponName: string,
   minOrderPrice: number,
   discountPrice: number,

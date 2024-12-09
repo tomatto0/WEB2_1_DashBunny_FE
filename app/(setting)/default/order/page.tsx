@@ -15,6 +15,8 @@ export default function OrderInfo() {
   const { data, isLoading } = useGetStoreOrderInfo();
   const [isChecked, setIsChecked] = useState(false);
 
+  console.log('주문정보', data);
+
   const initialState = {
     isTakeout: '',
     takeoutDiscount: 0,
@@ -77,7 +79,7 @@ export default function OrderInfo() {
     dispatch({
       type: 'UPDATE_FIELD',
       field: 'isTakeout',
-      value: isChecked ? 'On' : 'Off',
+      value: !isChecked ? 'On' : 'Off',
     });
   };
 
@@ -87,7 +89,6 @@ export default function OrderInfo() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // console.log(formData);
     mutate(formData);
   };
 

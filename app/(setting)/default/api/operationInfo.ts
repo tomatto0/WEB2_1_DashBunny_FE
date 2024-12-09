@@ -3,13 +3,13 @@ import { api } from "@/utils/axios/axiosInstance";
 import { ApiError } from "next/dist/server/api-utils";
 import { operationInfo, pauseTimeInfo } from "@/utils/model/store";
 
-const storeId = 1;
 
 //가게 운영 정보 조회
 export const getOperationInfo = async(): Promise<operationInfo> => {
+  const storeId = localStorage.getItem("storeId");
   try{
     const response = await api.get<operationInfo>(`/store/operation-info/${storeId}`);
-
+ console.log('운영정보 전체', response.data)
     return response.data
   } catch(error) {
     if (axios.isAxiosError(error)) {
@@ -22,9 +22,9 @@ export const getOperationInfo = async(): Promise<operationInfo> => {
 
 //가게 운영 정보 업데이트
 export const updateOperationInfo = async(formData: Partial<operationInfo>) : Promise<void> => {
+  const storeId = localStorage.getItem("storeId");
   try{
     const response = await api.post<void>(`/store/operation-info/${storeId}`, formData);
-    console.log('formData:', formData)
     return response.data
   }catch(error) {
     if (axios.isAxiosError(error)) {
@@ -37,6 +37,7 @@ export const updateOperationInfo = async(formData: Partial<operationInfo>) : Pro
 
 //가게 영업 일시중지 설정
 export const updatePauseInfo = async(formData: pauseTimeInfo) : Promise<pauseTimeInfo> => {
+  const storeId = localStorage.getItem("storeId");
 try{
   const response = await api.patch<pauseTimeInfo>(`/store/operation-pause/${storeId}`, formData);
   console.log('formData:', formData)
@@ -52,7 +53,7 @@ try{
 
 //가게 영업 일시중지 해제 설정
 export const endPauseInfo = async() : Promise<void> => {
-  
+  const storeId = localStorage.getItem("storeId");
   try{
     const response = await api.patch(`/store/operation-resume/${storeId}`, {
       userInfo: storeId

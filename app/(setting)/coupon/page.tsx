@@ -9,6 +9,7 @@ import { coupon } from '@/utils/model/coupon';
 export default function Coupon() {
   const { data, isLoading, isError } = useGetCouponList();
   const couponList = data;
+  console.log(couponList);
 
   const { useDeleteCouponMutate } = useDeleteCoupon();
 
@@ -17,7 +18,7 @@ export default function Coupon() {
       `쿠폰 '${coupon.couponName}'을(를) 운영중지 하시겠습니까?`,
     );
     if (confirmation) {
-      const ownerCouponId = coupon.ownerCouponId;
+      const ownerCouponId = coupon.couponId;
       useDeleteCouponMutate(ownerCouponId);
     }
   };
@@ -64,10 +65,10 @@ export default function Coupon() {
             </div>
           </div>
           {couponList?.map((coupon: coupon) => (
-            <div className={styles.menu} key={coupon.ownerCouponId}>
+            <div className={styles.menu} key={coupon.couponId}>
               <div className={styles.menu_left}>
                 <div className={styles.menu_title}>
-                  <p>{coupon.ownerCouponId}</p>
+                  <p>{coupon.couponId}</p>
                 </div>
               </div>
               <div>{coupon.couponName}</div>

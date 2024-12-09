@@ -6,7 +6,6 @@ import { getAllMenu, getSingleMenu, getGroupMenuOnly, getGroupMenus, updateMulti
 // 메뉴 리스트 조회 Mutation
 //전체 메뉴 조회
 export const useGetAllMenu = () => {
-  console.log("useGetAllMenu")
   return useQuery<menuList>({
     queryKey: ["MenuList"],
     queryFn: () => getAllMenu(),
@@ -32,6 +31,7 @@ export const useGetGroupMenus = (groupId: number | null, enabled = false) => {
 
 //메뉴 그룹 리스트 조회
 export const useGetGroupMenuOnly = () => {
+  console.log('useGetGroupMenuOnly')
   return useQuery<menuGroup[]>({
     queryKey: ["MenuGroup"],
     queryFn: () => getGroupMenuOnly(),

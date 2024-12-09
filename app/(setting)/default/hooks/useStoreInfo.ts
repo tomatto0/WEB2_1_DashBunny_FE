@@ -14,9 +14,16 @@ export const useGetStoreBasicInfo = () => {
   })
 }
 
+interface updateInfoData {
+  storePhone: string;
+  storeDescription: string;
+  ShortsUrl: string;
+  ShortsMenu: string;
+}
+
 export const useUpdateStoreBasicInfo = () => {
   const { mutate } = useMutation({
-    mutationFn: updateBasicInfo,
+    mutationFn: (formData:updateInfoData) => updateBasicInfo(formData),
     onSuccess: () => {
       localStorage.setItem("postSuccessMessage", "이 완료되었습니다.");
     },

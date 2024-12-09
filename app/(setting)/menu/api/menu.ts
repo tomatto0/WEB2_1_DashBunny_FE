@@ -3,14 +3,14 @@ import { api} from "@/utils/axios/axiosInstance";
 import { ApiError } from "next/dist/server/api-utils";
 import { menuList, menuGroup, menu, menuListResponse } from "@/utils/model/menu";
 
-const storeId = 'user_1';
-
 
 // 메뉴 리스트 조회 API
 // 전체 메뉴 조회
 export const getAllMenu = async(): Promise<menuList> => {
+  const storeId = localStorage.getItem("storeId");
   try{
     const response = await api.get<menuList>(`/store/read/menu/${storeId}`);
+    console.log('전체메뉴조회',response);
     return response.data
   } catch(error) {
     if (axios.isAxiosError(error)) {
@@ -40,9 +40,10 @@ export const getGroupMenus = async(groupId: number): Promise<menuListResponse> =
 
 // 메뉴 그룹 리스트 조회
 export const getGroupMenuOnly = async(): Promise<menuGroup[]> => {
-  console.log("getGroupMenuOnly");
+  const storeId = localStorage.getItem("storeId");
   try{
     const response = await api.get<menuGroup[]>(`/store/create/menu/${storeId}`);
+    console.log('메뉴그룹', response);
     return response.data
   } catch(error) {
     if (axios.isAxiosError(error)) {
@@ -78,6 +79,7 @@ export const getSingleMenu = async(menuId: number): Promise<singleMenu> => {
 
 //신규 메뉴 등록
 export const addMenu = async(formData: Partial<menu>) : Promise<void> => {
+  const storeId = localStorage.getItem("storeId");
   try{
     const response = await api.post(`/store/create-menu/${storeId}`, formData);
 
@@ -93,6 +95,7 @@ export const addMenu = async(formData: Partial<menu>) : Promise<void> => {
 
 // 메뉴 1건 삭제
 export const deleteMenu = async(menuId: number) : Promise<void> => {
+  
   try{
     const response = await api.delete(`/store/menu-delete/${menuId}`);
 

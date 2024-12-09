@@ -7,7 +7,7 @@ const nextConfig = {
     includePaths: [path.join(__dirname, 'styles')],
   },
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'example.com'],
     remotePatterns: [
       {
         protocol: 'https',

@@ -3,11 +3,10 @@ import { api } from "@/utils/axios/axiosInstance";
 import { ApiError } from "next/dist/server/api-utils";
 import { coupon } from "@/utils/model/coupon";
 
-const storeId = 'user_1';
-
 //쿠폰 리스트 가져오기
 
 export const getCouponList = async(): Promise<coupon[]> => {
+  const storeId = localStorage.getItem("storeId");
   try{
     const response = await api.get<coupon[]>(`/store/coupon/${storeId}`);
     return response.data
@@ -23,6 +22,7 @@ export const getCouponList = async(): Promise<coupon[]> => {
 
 //신규 쿠폰 생성
 export const addCoupon = async(formData: Partial<coupon>) : Promise<void> => {
+  const storeId = localStorage.getItem("storeId");
   try{
     const response = await api.post<void>(`/store/coupon/${storeId}`, formData);
     return response.data

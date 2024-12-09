@@ -11,6 +11,7 @@ import UpdateMenuGroupModal from '../component/UpdateMenuGroup';
 
 export default function groups() {
   const { data, isLoading, isError } = useGetGroupMenuOnly();
+  console.log('메뉴그룹', data);
   const menuGroups = data || [];
 
   //메뉴 그룹 추가 모달 온오프

@@ -3,10 +3,9 @@ import { api } from "@/utils/axios/axiosInstance";
 import { ApiError } from "next/dist/server/api-utils";
 import { updateGroupData } from "@/utils/model/menu";
 
-const storeId = 'user_1';
-
 //신규 메뉴 그룹 생성
 export const addMenuGroup = async(formData: updateGroupData) : Promise<void> => {
+  const storeId = localStorage.getItem("storeId");
   try{
     const response = await api.post(`/store/group/${storeId}`, formData);
     console.log('Add MenuGroup Data:', formData)

@@ -11,11 +11,12 @@ interface SignInResponse {
   accessToken: string
   refreshToken: string
 }
+
 export const userSignIn = async (formData: SignInRequestDto): Promise<void> => {
   try {
     const { data } = await api.post<SignInResponse>(`/auth/login`, formData
     )
-
+console.log('token 리퀘스트',data)
     localStorage.setItem("token", data.accessToken)
     localStorage.setItem("refreshToken", data.refreshToken)
 

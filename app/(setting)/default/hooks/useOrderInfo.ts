@@ -15,7 +15,7 @@ export const useGetStoreOrderInfo = () => {
 
 export const useUpdateStoreOrderInfo = () => {
   const { mutate } = useMutation({
-    mutationFn: updateOrderInfo,
+    mutationFn: (formData:orderInfo) => updateOrderInfo(formData),
     onSuccess: () => {
       localStorage.setItem("postSuccessMessage", "이 완료되었습니다.");
     },
