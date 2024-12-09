@@ -12,7 +12,7 @@ export const useRegistStore = () => {
     mutationFn: (formData: FormData) => registStore(formData), 
     onSuccess: () => {
       localStorage.setItem("postSuccessMessage", "이 완료되었습니다.");
-      router.push('http://localhost:3000/main');
+      router.push('http://localhost:3000/auth/store/lobby');
     },
     onError(error) {
       console.log(error);
