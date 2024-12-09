@@ -8,26 +8,27 @@ import StoreMap from '../../components/sign-up-store/storeMap';
 import StoreName from '../../components/sign-up-store/storeName';
 import { useState, useReducer } from 'react';
 import styles from './store.module.scss';
-import { useRouter } from 'next/navigation';
 import { useRegistStore } from '../../hooks/useStore';
 
 export default function SignUpNav() {
   const [step, setStep] = useState(1);
-  const router = useRouter();
 
-  //formData 관리
+  //jsonData 관리
   const [roadAddress, setRoadAddress] = useState('');
   const [jibunAddress, setJibunAddress] = useState(''); // 지번 주소
   const [detailAddress, setDetailAddress] = useState('');
 
+  //file관리
+
+  const [registerFile, setRegisterFile] = useState<File | null>(null);
+
+  //formData 만들기
   const initialState = {
     storeName: '',
     address: '',
     latitude: 0,
     longitude: 0,
     storeRegistrationDocs: null,
-    storeStatus: 'PENDING',
-    userName: 'unknown',
     categories: [],
   };
 
@@ -36,7 +37,7 @@ export default function SignUpNav() {
     action: {
       type: 'UPDATE_FIELD';
       field: string;
-      value: string | number | File | string[];
+      value: string | number | string[];
     },
   ) {
     switch (action.type) {
@@ -50,7 +51,7 @@ export default function SignUpNav() {
     }
   }
 
-  const [formData, dispatch] = useReducer(reducer, initialState);
+  const [jsonData, dispatch] = useReducer(reducer, initialState);
 
   // storeName 업데이트 함수
   const handleStateChange = (fieldName: string, value: string) => {
@@ -66,11 +67,7 @@ export default function SignUpNav() {
   const handleFileChange = (file: File | null) => {
     if (file) {
       console.log('Selected file:', file.name);
-      dispatch({
-        type: 'UPDATE_FIELD',
-        field: 'storeRegistrationDocs',
-        value: file,
-      });
+      setRegisterFile(file);
     } else {
       console.log('No file selected');
     }
@@ -82,7 +79,7 @@ export default function SignUpNav() {
     dispatch({ type: 'UPDATE_FIELD', field: 'latitude', value: coords.lat });
   };
 
-  //폼데이터 확인
+  // 주소 업데이트
   const handleAddressUpdate = () => {
     dispatch({
       type: 'UPDATE_FIELD',
@@ -94,11 +91,22 @@ export default function SignUpNav() {
   const { registStoreMutate } = useRegistStore();
 
   const handleSubmit = () => {
+    const formData = new FormData();
+
+    formData.append('request', JSON.stringify(jsonData));
+    // 파일 추가
+
+    if (registerFile) {
+      formData.append('docsImageFile', registerFile); // file이 null이 아닌 경우에만 추가
+    } else {
+      console.error('File is null. Please select a valid file.');
+    }
+
     const requiredFields = {
-      storeName: formData.storeName,
-      address: formData.address,
-      storeRegistrationDocs: formData.storeRegistrationDocs,
-      categories: formData.categories,
+      storeName: jsonData.storeName,
+      address: jsonData.address,
+      docsImageFile: registerFile,
+      categories: jsonData.categories,
     };
 
     // 비어있는 필드 확인
@@ -114,12 +122,12 @@ export default function SignUpNav() {
       alert(errorMessages); // 에러 메시지 알림
       return;
     }
-
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
     // 모든 필드가 올바른 경우
     registStoreMutate(formData);
-
     console.log('Form submitted successfully:', formData);
-    router.push('http://localhost:3000/main');
   };
 
   return (
@@ -176,24 +184,22 @@ export default function SignUpNav() {
             <ul>
               <li>
                 <span>가게 이름: </span>
-                {formData.storeName ? formData.storeName : '미입력'}
+                {jsonData.storeName ? jsonData.storeName : '미입력'}
               </li>
               <li>
                 <span>가게 주소: </span>
-                {formData.address ? formData.address : '미입력'}
+                {jsonData.address ? jsonData.address : '미입력'}
               </li>
 
               <li>
                 <span>카테고리:</span>{' '}
-                {formData.categories.length > 0
-                  ? formData.categories.join(', ')
+                {jsonData.categories.length > 0
+                  ? jsonData.categories.join(', ')
                   : '미입력'}
               </li>
               <li>
                 <span>사업자 등록 이미지:</span>{' '}
-                {formData.storeRegistrationDocs
-                  ? (formData.storeRegistrationDocs as File).name
-                  : '없음'}
+                {registerFile ? (registerFile as File).name : '없음'}
               </li>
             </ul>
             <button onClick={handleSubmit}>등록하기</button>

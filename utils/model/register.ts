@@ -1,10 +1,11 @@
 export interface storeRegist{
-  storeName: string,
-  address: string,
-  latitude: number,
-  longitude: number,
-  storeRegistrationDocs: File | null,
-  storeStatus: string,
-  userName: string,
-  categories: string[],
+  request: {storeName: string,
+    address: string,
+    latitude: number,
+    longitude: number,
+    storeRegistrationDocs: null,  
+    categories: string[],}
+  
+  docsImageFile: File | null,
+
 }
