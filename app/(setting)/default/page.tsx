@@ -73,7 +73,7 @@ export default function BasicInfo() {
     mutate(formData);
   };
 
-  if (isLoading) return <div>로딩 중...</div>;
+  if (isLoading) return <div>로딩 중....</div>;
 
   return (
     <>
