@@ -1,0 +1,57 @@
+@use '../../../../styles/style.scss';
+
+.color {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('/img/login_background_img.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.lobby_wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .storelist_wrap {
+    width: 350px;
+    background-color: style.$gray-25;
+    border-radius: 12px;
+    border: 1px solid style.$gray-300;
+    padding: 10px 10px 0 10px;
+    color: style.$gray-700;
+    margin-top: 40px;
+
+    li {
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 10px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: style.$gray-100;
+      }
+    }
+
+    .store {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      border-bottom: 1px solid style.$gray-300;
+    }
+
+    .add_store {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 15px;
+      gap: 3px;
+      height: 100%;
+      margin: 10px 0;
+    }
+  }
+}

@@ -11,8 +11,15 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        inputText: '#6C737F',
+        inputBg: '#F3F4F6',
+        secondary: '#ecc94b',
+        'orange': {
+          400: '#fb923c',
+
+        },
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms'),],
 } satisfies Config;
