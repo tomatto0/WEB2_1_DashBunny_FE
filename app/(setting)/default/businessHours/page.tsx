@@ -1,9 +1,14 @@
 'use client';
 
 import styles from '@/styles/settings.module.scss';
-import Image from 'next/image';
-import { operationInfo } from '@/utils/model/store';
-import { useState, FormEvent, ChangeEvent, useReducer, useEffect } from 'react';
+import {
+  useState,
+  FormEvent,
+  ChangeEvent,
+  useReducer,
+  useEffect,
+  useCallback,
+} from 'react';
 import {
   useGetOperationInfo,
   useUpdateOperationInfo,
@@ -15,7 +20,9 @@ export default function businessHours() {
   const { data, isLoading } = useGetOperationInfo();
   const [pauseTime, setPauseTime] = useState('현재 영업중지 상태가 아닙니다');
 
-  //시간설정 NAV 함수
+  console.log('운영정보', data);
+
+  //일시중지 설정 모달 온오프
   const [showPauseModal, setPauseModal] = useState(false);
   const clickModal = () => setPauseModal(!showPauseModal);
 
@@ -29,7 +36,7 @@ export default function businessHours() {
   function reducer(
     state: typeof initialState,
     action:
-      | { type: 'UPDATE_FIELD'; field: string; value: any }
+      | { type: 'UPDATE_FIELD'; field: string; value: string }
       | { type: 'SET_INITIAL_STATE'; value: typeof initialState },
   ) {
     switch (action.type) {
@@ -50,11 +57,9 @@ export default function businessHours() {
 
   const [formData, dispatch] = useReducer(reducer, initialState);
 
-  const makePauseTime = () => {
-    const pauseSentence = `현재 설정된 임시중지 기간: ${data?.pauseStartTime} ~ ${data?.pauseEndTime}`;
-
-    return pauseSentence;
-  };
+  const makePauseTime = useCallback(() => {
+    return `현재 설정된 임시중지 기간: ${data?.pauseStartTime} ~ ${data?.pauseEndTime}`;
+  }, [data]);
 
   useEffect(() => {
     if (data) {
@@ -72,7 +77,7 @@ export default function businessHours() {
         },
       });
     }
-  }, [data]);
+  }, [data, makePauseTime]);
 
   //입력될때마다 formdata가 업뎃되는 함수
   const handleInputChange = (

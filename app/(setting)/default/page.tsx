@@ -9,18 +9,19 @@ import useUpdateStoreBasicInfo from './hooks/useStoreInfo';
 export default function BasicInfo() {
   const { data, isLoading } = useGetStoreBasicInfo();
 
+  console.log('기본정보', data);
+
   const initialState = {
     storePhone: '',
-    storeLogo: '',
-    bannerImage: '',
     storeDescription: '',
-    promoShortsUrl: '',
+    ShortsUrl: '',
+    ShortsMenu: '',
   };
 
   function reducer(
     state: typeof initialState,
     action:
-      | { type: 'UPDATE_FIELD'; field: string; value: any }
+      | { type: 'UPDATE_FIELD'; field: string; value: number | string }
       | { type: 'SET_INITIAL_STATE'; value: typeof initialState },
   ) {
     switch (action.type) {
@@ -47,11 +48,10 @@ export default function BasicInfo() {
       dispatch({
         type: 'SET_INITIAL_STATE',
         value: {
-          storePhone: data.storePhone || '',
-          storeLogo: data.storeLogo || '',
-          bannerImage: data.bannerImage || '',
+          storePhone: data.contactNumber || '',
           storeDescription: data.storeDescription || '',
-          promoShortsUrl: data.ShortsUrl || '',
+          ShortsUrl: data.shortsInfo || '',
+          ShortsMenu: '',
         },
       });
     }
@@ -73,7 +73,7 @@ export default function BasicInfo() {
     mutate(formData);
   };
 
-  if (isLoading) return <div>로딩 중...</div>;
+  if (isLoading) return <div>로딩 중....</div>;
 
   return (
     <>
@@ -127,7 +127,7 @@ export default function BasicInfo() {
             가게 주소
             <input
               type="text"
-              defaultValue={data?.storeAddress}
+              defaultValue={data?.address}
               disabled
               className={`${styles.long_input_text} ${styles.disabled}`}
             />
@@ -144,7 +144,7 @@ export default function BasicInfo() {
                   {data?.storeLogo ? (
                     <Image
                       aria-hidden
-                      src={data.storeLogo}
+                      src={data.storeLogo || '/img/setting_img_placeholder.jpg'}
                       alt="storeLogo"
                       width={102}
                       height={102}
@@ -206,8 +206,8 @@ export default function BasicInfo() {
               type="text"
               placeholder="https://youtube.com/shorts/PgIJlbWb7Nc?feature=shared"
               className={`${styles.long_input_text}`}
-              name="promoShortsUrl"
-              value={formData.promoShortsUrl}
+              name="ShortsUrl"
+              value={formData.ShortsUrl}
               onChange={handleInputChange}
             />
           </div>

@@ -1,0 +1,254 @@
+@use '../../../../../styles/style.scss';
+
+.block {
+  font-size: 24px;
+  font-weight: 600;
+  color: style.$gray-700;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+
+  button {
+    width: 350px;
+    background-color: style.$bunny-orange;
+    font-size: 17px;
+    font-weight: 700;
+    color: white;
+    border-radius: 8px;
+    height: 48px;
+  }
+
+  input[type='text'] {
+    width: 350px;
+    height: 48px;
+    border: 1px solid style.$gray-300;
+    border-radius: 8px;
+    color: style.$gray-700;
+    font-weight: 400;
+
+    &::placeholder {
+      color: style.$gray-500;
+    }
+  }
+}
+
+// 상단 상태변경용 버튼
+
+.back_button {
+  width: 72px;
+  height: 50px;
+  background-color: style.$gray-200;
+  color: style.$gray-700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  position: fixed;
+  top: 91px;
+  left: calc(100vw / 6);
+}
+
+.next_button {
+  width: 72px;
+  height: 50px;
+  background-color: style.$bunny-orange;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  position: fixed;
+  top: 91px;
+  right: calc(100vw / 6);
+}
+
+//이미지 업로드
+
+.thumbnail {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.image_input {
+  width: 102px;
+  height: 102px;
+  background-color: style.$gray-25;
+  border-radius: 12px;
+  border: 1px solid style.$gray-300;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: style.$gray-500;
+  gap: 8px;
+
+  img {
+    width: 29px;
+    height: 29px;
+  }
+}
+
+.file_name {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+// 장르선택
+
+.first_checked {
+  border: 1px solid style.$bunny-orange;
+  color: style.$gray-700;
+}
+
+.checked {
+  border: 1px solid style.$gray-500;
+  color: style.$gray-700;
+}
+
+.category_bar_wrap {
+  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 350px;
+  color: style.$gray-500;
+
+  p {
+    font-size: 13px;
+    font-weight: 400;
+    text-align: left;
+    width: 350px;
+  }
+
+  .category_bar {
+    padding: 15px;
+    font-size: 15px;
+    width: 110px;
+    background-color: style.$gray-25;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 110px;
+    box-sizing: border-box;
+    border-radius: 8px;
+
+    &:focus {
+      border: 1px solid style.$bunny-orange;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3);
+    }
+  }
+}
+
+// search 페이지 요소
+.search_block {
+  position: relative;
+
+  img {
+    position: absolute;
+    top: 15px;
+    right: 19px;
+  }
+}
+
+.search_guide_wrap {
+  position: absolute;
+  margin-top: 20px;
+  text-align: left;
+  padding-left: 14px;
+
+  .search_guide_title {
+    font-weight: 700;
+    font-size: 15px;
+    color: style.$gray-700;
+    margin-bottom: 8px;
+  }
+
+  .search_guide_detail {
+    font-size: 13px;
+    font-weight: 400;
+    color: style.$gray-500;
+  }
+}
+
+.search_result_wrap {
+  width: 350px;
+  position: absolute;
+  height: 360px;
+  overflow: auto;
+  margin-top: 4px;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #f3f4f6;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+  }
+
+  .content {
+    font-size: 15px;
+    font-weight: 400;
+    color: style.$gray-500;
+    text-align: left;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid style.$gray-200;
+    padding: 10px 12px;
+    margin-bottom: 4px;
+    box-shadow: 0px 5px 12px -4px rgba(16, 24, 40, 0.08);
+
+    &:hover {
+      cursor: pointer;
+      background-color: style.$gray-50;
+      border: 1px solid style.$gray-300;
+    }
+  }
+}
+
+//주소확인 css
+
+.address_map_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.address_check {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 350px;
+
+  .address_road {
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .address_legacy {
+    font-size: 17px;
+    font-weight: 400;
+  }
+}
+
+.map_wrap {
+  font-size: 12px;
+  font-weight: 500;
+  color: style.$gray-500;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}

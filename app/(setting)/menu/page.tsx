@@ -3,53 +3,65 @@
 import styles from '@/styles/menu.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, {
-  FormEvent,
-  ChangeEvent,
-  useReducer,
-  useEffect,
-  useState,
-} from 'react';
+import React, { useReducer, useEffect, useState, useMemo } from 'react';
 import {
   useGetAllMenu,
-  useGetGroupMenu,
+  useGetGroupMenus,
   useMultifleDelete,
   useMultifleSoldOut,
+  useSingleSoldOut,
 } from './hooks/useMenu';
 import { menu, menuGroup } from '@/utils/model/menu';
 
 export default function menuSetting() {
-  const { data, isLoading } = useGetAllMenu();
+  const {
+    data: allMenuData,
+    isError: isAllMenuError,
+    isLoading: isAllMenuLoading,
+  } = useGetAllMenu();
 
   //menu array를 setState를 통해서 관리
-  const menuArray = data?.menus || [];
-  const menuGroupArray = data?.menuGroups || [];
+  const menuArray = useMemo(
+    () => allMenuData?.menus || [],
+    [allMenuData?.menus],
+  );
+  const menuGroupArray = useMemo(
+    () => allMenuData?.menuGroups || [],
+    [allMenuData?.menuGroups],
+  );
   const [menuArrayState, setMenuArrayState] = useState(menuArray);
   const [activeGroupId, setActiveGroupId] = useState<number | null>(null); // 활성화된 그룹 ID
 
+  const {
+    data: groupMenus,
+    isError: isGroupMenuError,
+    isLoading: isGroupMenuLoading,
+  } = useGetGroupMenus(
+    activeGroupId,
+    !!activeGroupId, // activeGroupId가 유효할 때만 실행
+  );
+
+  // 초기 로딩 또는 그룹 변경 시 메뉴 업데이트
   useEffect(() => {
-    if (menuArray) {
+    if (activeGroupId === null) {
+      // 전체 메뉴
       setMenuArrayState(menuArray);
+    } else if (groupMenus) {
+      // 특정 그룹의 메뉴
+      const groupMenuList = groupMenus.menus;
+      setMenuArrayState(groupMenuList);
     }
-  }, [menuArray]);
+  }, [activeGroupId, menuArray, groupMenus]);
 
   //그룹리스트 불러오기
-  const handleGroupList = (groupId: number) => {
-    const { data, isError, error, isLoading } = useGetGroupMenu(groupId);
-
-    if (isError) {
-      console.error('Error fetching group menus:', error); // 에러 로그 출력
-      alert('그룹 메뉴를 가져오는 중 오류가 발생했습니다.'); // 사용자에게 알림
-      return;
-    }
-
-    if (!isLoading && data) {
-      setMenuArrayState(data); // 데이터를 상태에 저장
-      setActiveGroupId(groupId); // 활성화된 그룹 ID 업데이트
-    }
+  const handleGroupList = (menuGroup: menuGroup) => {
+    const groupId = menuGroup.groupId;
+    setActiveGroupId(groupId); // 활성화된 그룹 ID 업데이트
   };
 
-  //개별 품절 처리
+  const { updateSingleSoldOutMutate } = useSingleSoldOut();
+
+  //개별 품절 처리 함수
   //체크를 할때마다 체크값이 새로 업데이트된 menuArray가 새로 State에 저장됨
   const handleSoldOutToggle = (menuId: number) => {
     setMenuArrayState((prevMenuArray) =>
@@ -57,6 +69,16 @@ export default function menuSetting() {
         menu.menuId === menuId ? { ...menu, isSoldOut: !menu.isSoldOut } : menu,
       ),
     );
+
+    // 업데이트된 메뉴의 품절 상태를 찾음
+    const updatedMenu = menuArrayState.find((menu) => menu.menuId === menuId);
+
+    //값이 undefined인지 확인
+    if (updatedMenu) {
+      const isSoldOut = !updatedMenu.isSoldOut;
+
+      updateSingleSoldOutMutate({ menuId, isSoldOut });
+    }
   };
 
   // 전체 그룹 선택
@@ -65,16 +87,20 @@ export default function menuSetting() {
     setActiveGroupId(null); // 활성화된 그룹 ID 초기화
   };
 
+  // 다중 삭제/품절을 요청하기 위한 내용
   // menuArray를 받아서 기본 initialstate를 만드는 reduce함수
   const createInitialState = (menuArray: menu[]) =>
-    menuArray.reduce((state, menu) => {
-      state[menu.menuId] = false; // 초기값: 모두 체크되지 않은 상태
-      return state;
-    }, {} as Record<number, boolean>);
+    menuArray.reduce(
+      (state, menu) => {
+        state[menu.menuId] = false; // 초기값: 모두 체크되지 않은 상태
+        return state;
+      },
+      {} as Record<number, boolean>,
+    );
 
   const initialState = createInitialState(menuArray);
 
-  // Reducer function to toggle checkbox state
+  // 체크박스 상태를 업데이트하는 reducer
   const reducer = (
     state: Record<number, boolean>,
     action: { type: string; menuId?: number },
@@ -95,44 +121,45 @@ export default function menuSetting() {
 
   const [checkedState, dispatch] = useReducer(reducer, initialState);
 
-  useEffect(() => {
-    setMenuArrayState(menuArray); // 데이터가 바뀌면 상태 초기화
-    dispatch({ type: 'RESET_CHECKED' });
-  }, [menuArray]);
-
   // 사이드 Handle 체크박스 토글시 checkedState에 업데이트
   const handleCheckboxToggle = (menuId: number) => {
     dispatch({ type: 'TOGGLE_CHECKED', menuId });
   };
 
+  // 체크된 다중 핸들 품절 api처리
   const { updateMultifleSoldOutMutate } = useMultifleSoldOut();
 
-  // 체크된 다중 핸들 품절 api처리
   const handleSoldOutAction = () => {
     const selectedIds = Object.keys(checkedState)
       .filter((id) => checkedState[Number(id)])
       .map(Number);
 
-    // API call with selected IDs
-    console.log('Selected Menu IDs for Sold Out:', selectedIds);
-
-    updateMultifleSoldOutMutate(selectedIds);
+    const confirmation = window.confirm(
+      `체크한 메뉴들을 일괄 품절 처리하시겠습니까?`,
+    );
+    if (confirmation) {
+      updateMultifleSoldOutMutate(selectedIds);
+    }
   };
 
+  // 체크된 다중 핸들 삭제 api처리
   const { updateMultifleDeleteMutate } = useMultifleDelete();
 
-  // 체크된 다중 핸들 삭제 api처리
   const handleDeleteAction = () => {
     const selectedIds = Object.keys(checkedState)
       .filter((id) => checkedState[Number(id)])
       .map(Number);
 
-    // API call with selected IDs
-    console.log('Selected Menu IDs for Delete:', selectedIds);
-
-    // TODO: Implement API call here
-    updateMultifleDeleteMutate(selectedIds);
+    const confirmation = window.confirm(
+      `체크한 메뉴들을 일괄 삭제하시겠습니까?`,
+    );
+    if (confirmation) {
+      updateMultifleDeleteMutate(selectedIds);
+    }
   };
+
+  if (isAllMenuLoading || isGroupMenuLoading) return <div>로딩 중...</div>;
+  if (isAllMenuError || isGroupMenuError) return <div>에러 발생</div>;
 
   return (
     <>
@@ -148,7 +175,7 @@ export default function menuSetting() {
                 width={14}
                 height={14}
               />
-              메뉴 추가
+              메뉴 등록
             </div>
           </Link>
         </div>
@@ -167,7 +194,7 @@ export default function menuSetting() {
               className={`${styles.group} ${
                 activeGroupId === menuGroup.groupId ? styles.active : ''
               }`}
-              onClick={() => handleGroupList(menuGroup.groupId)}
+              onClick={() => handleGroupList(menuGroup)}
             >
               {menuGroup.groupName}
             </div>
@@ -230,6 +257,7 @@ export default function menuSetting() {
                       alt="menuImage"
                       width={72}
                       height={72}
+                      priority={true}
                     />
                   ) : (
                     <Image
@@ -241,11 +269,12 @@ export default function menuSetting() {
                     />
                   )}
                 </div>
-
-                <div className={styles.menu_title}>
-                  <p>{menu?.menuName}</p>
-                  <p>{menu?.price}</p>
-                </div>
+                <Link href={`/menu/edit/${menu.menuId}`}>
+                  <div className={styles.menu_title}>
+                    <p>{menu?.menuName}</p>
+                    <p>{menu?.price}</p>
+                  </div>
+                </Link>
               </div>
 
               <div className={styles.menu_right}>

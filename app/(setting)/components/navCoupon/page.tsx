@@ -37,7 +37,7 @@ export default function NavCoupon() {
                 isActive('/coupon/add') ? styles.active : ''
               }`}
             >
-              쿠폰 발급 신청
+              쿠폰 발행
             </li>
           </Link>
         </ul>

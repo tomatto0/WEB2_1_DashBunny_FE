@@ -80,29 +80,11 @@ export default function HorizontalNav() {
             <div className={styles.window_wrap}>
               <Image
                 aria-hidden
-                src="/icons/window_min.svg"
-                alt="Window icon"
-                width={36}
-                height={36}
-              />
-            </div>
-            <div className={styles.window_wrap}>
-              <Image
-                aria-hidden
                 src="/icons/window_minimize.svg"
                 alt="Window icon"
                 width={36}
                 height={36}
                 onClick={handleFullScreen}
-              />
-            </div>
-            <div className={styles.window_wrap}>
-              <Image
-                aria-hidden
-                src="/icons/window_close.svg"
-                alt="Window icon"
-                width={36}
-                height={36}
               />
             </div>
           </div>

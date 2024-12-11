@@ -1,12 +1,13 @@
 import axios, {AxiosError} from "axios";
-import { api, updateAxiosClient } from "@/utils/axios/axiosInstance";
+import { api } from "@/utils/axios/axiosInstance";
 import { ApiError } from "next/dist/server/api-utils";
 import { basicInfo } from "@/utils/model/store";
 
-const storeId = 1;
+
 
 //가게 기본 정보 조회
 export const getBasicInfo = async(): Promise<basicInfo> => {
+  const storeId = localStorage.getItem("storeId");
   try{
     const response = await api.get<basicInfo>(`/store/basic-info/${storeId}`);
 
@@ -22,17 +23,16 @@ export const getBasicInfo = async(): Promise<basicInfo> => {
 
 interface updateInfoData {
     storePhone: string;
-    storeLogo: string;
-    bannerImage: string;
     storeDescription: string;
-    promoShortsUrl: string;
+    ShortsUrl: string;
+    ShortsMenu: string;
 }
 
 //가게 기본 정보 업데이트
 export const updateBasicInfo = async(formData: updateInfoData) : Promise<updateInfoData> => {
-  const request = updateAxiosClient();
+  const storeId = localStorage.getItem("storeId");
   try{
-    const response = await request.patch<updateInfoData>(`/store/basic-info/${storeId}`, formData);
+    const response = await api.patch<updateInfoData>(`/store/basic-info/${storeId}`, formData);
     console.log('formData:', formData)
     return response.data
   }catch(error) {

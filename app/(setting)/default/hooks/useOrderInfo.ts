@@ -1,4 +1,4 @@
-import { useQuery, UseQueryResult } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { orderInfo } from "@/utils/model/store";
 import { useMutation } from "@tanstack/react-query";
 import { getOrderInfo, updateOrderInfo } from "../api/orderInfo";
@@ -15,7 +15,7 @@ export const useGetStoreOrderInfo = () => {
 
 export const useUpdateStoreOrderInfo = () => {
   const { mutate } = useMutation({
-    mutationFn: updateOrderInfo,
+    mutationFn: (formData:orderInfo) => updateOrderInfo(formData),
     onSuccess: () => {
       localStorage.setItem("postSuccessMessage", "이 완료되었습니다.");
     },

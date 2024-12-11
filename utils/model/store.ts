@@ -1,12 +1,12 @@
 export interface basicInfo {
   storeName: string
-  storePhone: string
+  contactNumber: string
   storeStatus: string
-  storeAddress: string
+  address: string
   storeLogo: string
   bannerImage: string
   storeDescription: string
-  ShortsUrl: string
+  shortsInfo: string
 }
 
 export interface orderInfo{
@@ -27,6 +27,11 @@ export interface operationInfo{
   breakTime: string
   holidayDays: string
   holidayNotice: string
+  pauseStartTime: string
+  pauseEndTime: string
+}
+
+export interface pauseTimeInfo {
   pauseStartTime: string
   pauseEndTime: string
 }

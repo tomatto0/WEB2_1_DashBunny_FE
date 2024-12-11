@@ -1,0 +1,57 @@
+@use '../../../../../styles/style.scss';
+
+.block {
+  font-size: 24px;
+  font-weight: 600;
+  color: style.$gray-700;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+
+  ul {
+    font-size: 16px;
+    font-weight: 400;
+    text-align: left;
+    background-color: style.$gray-25;
+    border: 1px solid style.$gray-300;
+    padding: 36px 20px 20px 20px;
+    border-radius: 12px;
+    width: 350px;
+
+    li {
+      margin-bottom: 16px;
+      color: style.$gray-500;
+
+      span {
+        font-weight: 600;
+        color: style.$gray-700;
+      }
+    }
+  }
+
+  button {
+    width: 350px;
+    background-color: style.$bunny-orange;
+    font-size: 17px;
+    font-weight: 500;
+    color: white;
+    border-radius: 8px;
+    height: 48px;
+  }
+}
+
+.back_button {
+  width: 72px;
+  height: 50px;
+  background-color: style.$gray-200;
+  color: style.$gray-700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  position: fixed;
+  top: 91px;
+  left: calc(100vw / 6);
+}
