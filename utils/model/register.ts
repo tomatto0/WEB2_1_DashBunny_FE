@@ -4,8 +4,8 @@ export interface storeRegist{
     latitude: number,
     longitude: number,
     storeRegistrationDocs: null,  
-    categories: string[],}
-  
+    categories: string[],
+  }
   docsImageFile: File | null,
 
 }

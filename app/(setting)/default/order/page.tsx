@@ -68,8 +68,12 @@ export default function OrderInfo() {
 
   //입력될때마다 formdata가 업뎃되는 함수
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    dispatch({ type: 'UPDATE_FIELD', field: name, value });
+    const { name, value, type } = e.target;
+
+    // Convert the value to a number if the input type is "number"
+    const parsedValue = type === 'number' ? parseFloat(value) : value;
+
+    dispatch({ type: 'UPDATE_FIELD', field: name, value: parsedValue });
   };
 
   //checkbox가 눌러질때마다 checkbox의 상태에 따라서 formdata가 업뎃되는 함수
@@ -129,9 +133,6 @@ export default function OrderInfo() {
             <input
               type="number"
               placeholder="0"
-              min="0"
-              max="10000"
-              step="100"
               className={styles.short_input_text}
               name="takeoutDiscount"
               value={formData.takeoutDiscount}
@@ -145,9 +146,6 @@ export default function OrderInfo() {
             <input
               type="number"
               placeholder="0"
-              min="0"
-              max="100000"
-              step="100"
               className={styles.short_input_text}
               name="minOrderAmount"
               value={formData.minOrderAmount}
@@ -163,9 +161,6 @@ export default function OrderInfo() {
             <input
               type="number"
               placeholder="0"
-              min="0"
-              max="10000"
-              step="100"
               className={styles.short_input_text}
               name="deliveryTip"
               value={formData.deliveryTip}
