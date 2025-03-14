@@ -1,7 +1,6 @@
 ![1](https://github.com/user-attachments/assets/194df610-addf-4a25-9292-68ec10ccfbf5)
-<div align="center">직관적인 UX와 숏츠 기반 메뉴 탐색으로 소비자와 생산자를 연결하는 음식 배달 플랫폼</div>
-
 ![전체](./readme_image/thumbnail.jpg)
+<div align="center">직관적인 UX와 숏츠 기반 메뉴 탐색으로 소비자와 생산자를 연결하는 음식 배달 플랫폼 - POS</div>
 
 </br>
 
@@ -62,7 +61,8 @@
 
 
 ## Skills
-![Kakao API](https://img.shields.io/badge/Kakao%20map%20API-3670A0?style=for-the-badge&logo=python&logoColor=white)
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+![Kakao map API](https://img.shields.io/badge/Kakao%20map%20API-%2F3134?style=for-the-badge&logo=hyperledger&logoColor=white)
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
@@ -71,7 +71,7 @@
 ![Prettier](https://img.shields.io/badge/prettier-%23F7B93E.svg?style=for-the-badge&logo=prettier&logoColor=black)
 ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
 ![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)
-![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+
 
 </br>
 
@@ -113,7 +113,7 @@
 
 ### 가게 등록
 
-![signup-store](readme_image/store_join.mp4)
+[![readme_image/store_join.mp4](https://github.com/user-attachments/assets/95cba9b5-e0a2-44b9-87f0-dbb87f1e3b2d)](https://github.com/user-attachments/assets/95cba9b5-e0a2-44b9-87f0-dbb87f1e3b2d)
 
 - 신규 가게의 기본 정보(매장명, 사업자등록증, 업종, 매장 주소)를 입력하는 폼을 구현
 - 단계별 입력(Step UI) 방식을 적용하여 한 번에 하나의 입력만 요구, 사용자가 직관적으로 정보를 입력할 수 있도록 개선
